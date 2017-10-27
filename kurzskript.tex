@@ -1,0 +1,100 @@
+\documentclass{scrreprt}
+
+\usepackage[ngerman]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{color}
+
+\begin{document}
+\title{Theoretische Informatik {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen}
+\subtitle{Kurzskript zur Prüfungsvorbereitung}
+\author{Bjarne Hiller}
+
+\maketitle
+\tableofcontents
+
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Satz}{Satz}[chapter]
+
+\setcounter{chapter}{-1}
+\chapter{Wichtige Begriffe aus der Berechenbarkeitstheorie}
+\textbf{Kernfrage: Ist ein Problem algorithmisch lösbar?}
+\begin{Definition}[Turingmaschine]
+Eine \textcolor{blue}{deterministische Turingmaschine} (DTM) (oder ein det. Turingprogramm) $M$ ist ein 5-Tupel $M=(Z,\Sigma,\delta,z_a,z_e)$ mit:
+\begin{itemize}
+\item $Z$ ist eine endliche Menge von Zuständen
+\item $z_a$ ist der ausgezeichnete Anfangszustand
+\item $z_e$ ist der ausgezeichnete Endzustand
+\item $\Sigma$ ist eine endliche Menge, das \textcolor{blue}{Bandalphabet}\\
+$\Box$ ist ein ausgezeichnetes Symbol in $\Sigma$: es heißt \textcolor{blue}{Leersymbol} (Blank) und zeigt an, dass die Bandzelle leer ist
+\item $Z \cap \Sigma = \emptyset$
+\item $\delta : Z \times \Sigma \rightarrow Z \times \Sigma \times \{+1,-1,0\}$ ist eine nicht notwendig überall definierte Funktion, die \textcolor{blue}{Übergangsfunktion} 
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Turing-berechenbar]
+Eine (partielle) Funktion $f: \Sigma^* \rightarrow \Sigma^*$ heißt \textcolor{blue}{Turingprogramm-berechenbar}, falls eine DTM $M$ existiert mit $f=f_M$.
+\end{Definition}
+
+\begin{Definition}[Entscheidbarkeit]
+Eine Menge $A\subseteq \mathbb{N}$ (bzw. $A\subseteq \mathbb{N}^k$ oder $A\subseteq \Sigma^*$) heißt \textcolor{blue}{entscheidbar}, wenn die charakteristische Funktion $\chi_A : \mathbb{N} \rightarrow \{0,1\}$ (bzw. $\chi_A : \mathbb{N}^k \rightarrow \{0,1\}$ oder $\chi_A : \Sigma^* \rightarrow \{0,1\}$) von $A$,
+\begin{flalign*}
+\chi_A(x) =
+\begin{cases}
+1&\text{falls $x\in A$}\\
+0&\text{sonst, also falls $x\in A$}\\
+\end{cases}
+\end{flalign*}
+berechenbar ist.
+\end{Definition}
+
+\chapter{Komplexität}
+
+\textbf{Kernfrage: Wie schwierig ist ein lösbares Problem?}
+\section{Graphen}
+\begin{Definition}
+Ein (ungerichteter, einfacher) Graph $G$ ist ein Paar $G=(V,E)$ bestehend aus \textcolor{blue}{Knotenmenge} $V$ und \textcolor{blue}{Kantenmenge} $E\subseteq \binom{V}{2}$.\\
+$\binom{V}{2}$ steht hierbei für die Menge aller 2-elementigen Teilmengen von $V$.
+\end{Definition}
+\begin{Definition}
+Sei $G=(V,E)$ ein Graph. Dann gilt:
+\begin{enumerate}
+\item Zwei Knoten $x,y \in V$ sind \textcolor{blue}{verbunden}, wenn $\{x,y\} \in E$ ist.
+\item Eine Menge $Q \subseteq V$ von Knoten ist eine \textcolor{blue}{Clique}, wenn je zwei Knoten in $Q$ verbunden sind.
+\item Eine Menge $U \subseteq V$ von Knoten ist eine \textcolor{blue}{unabhängige Menge} (independent set), wenn je zwei Knoten in $U$ unverbunden sind.
+\end{enumerate}
+\end{Definition}
+
+\section{Zeitaufwand und Komplexitätsklassen}
+\begin{Definition}[$\mathcal{O}$-Notation]
+Für Funktionen $f, g: \mathbb{N} \rightarrow \mathbb{R}$ schreiben wir \textcolor{blue}{$f \in \mathcal{O}(g)$} oder auch \textcolor{blue}{$f=\mathcal{O}(g)$}, falls es eine Konstante $c>0$ gibt mit: Es existiert ein $n_0$, sodass $f(n) \leq c \cdot g(n)$ für alle $n\geq n_0$ gilt. Man sagt, dass $f$ asymptotisch höchstens so stark wächst wie $g$.\\
+Formal: $f \in \mathcal{O}(g) \Leftrightarrow \exists c>0 \, \exists n_0 \in \mathbb{N}\, \forall n\geq n_0:f(n)\leq c \cdot g(n)$
+\end{Definition}
+
+\begin{Definition}[Zeitaufwand von DTM-Programmen]
+Sei $M$ eine DTM über Alphabet $\Sigma$. Der \textcolor{blue}{Zeitaufwand} $t_M(w)$ von $M$ bei Eingabe $w \in \Sigma^*$ ist
+\begin{flalign*}
+t_M(w)=
+\begin{cases}
+\parbox[t]{0.5\textwidth}{Zahl der Konfigurationsübergänge der Berechnung von $M$ bei Eingabe $w$}&\text{falls Berechnung abbricht}\\
+\infty&\text{sonst}\\
+\end{cases}&&
+\end{flalign*}
+Der \textcolor{blue}{Zeitaufwand} $t_M(n)$ von $M$ bei Eingaben der Codierungslänge $n$ ist\\
+$t_M(n)=\max \{t_M(w)|w\in\Sigma^n\}$
+\end{Definition}
+
+\begin{Definition}
+Es sei $f : \mathbb{N} \rightarrow \mathbb{N}$ eine Funktion. Mit \textcolor{blue}{\textsf{DTIME($f$)}} bezeichnen wir die Menge aller Entscheidungsprobleme, die sich durch eine DTM $M$ mit Zeitaufwand $t_m = O(f)$ entscheiden lassen:\\
+$\textcolor{blue}{\textsf{DTIME(f)}}=\{L\subseteq \Sigma^* \mid \text{$L$ ist entscheidbar durch eine DTM $M$ mit $t_m=\mathcal{O}(f)$} \}$
+\end{Definition}
+
+\begin{Definition}[Komplexitätsklasse \textsf{P}]
+$\textsf{P} = \bigcup\limits_{k=0}^\infty \textsf{DTIME}(n^k)$ ist die Klasse aller in (deterministisch) polynomiellem Zeitaufwand lösbaren (Entscheidungs-) Probleme.  \textsf{P} ist also die Klasse von Problemen, die effizient gelöst werden können.
+\end{Definition}
+
+\begin{Definition}[Komplexitätsklasse \textsf{EXPTIME}]
+$\textsf{EXPTIME} = \bigcup\limits_{k=0}^\infty \textsf{DTIME}(2^{n^k})$ ist die Klasse aller in (deterministisch) exponentiellem Zeitaufwand lösbaren (Entscheidungs-) Probleme. (Es gilt: $\textsf{P}\subseteq \textsf{EXPTIME}$)
+\end{Definition}
+\chapter{Formale Sprachen}
+\end{document}
