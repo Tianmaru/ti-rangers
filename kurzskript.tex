@@ -14,11 +14,12 @@
 \tableofcontents
 
 \newtheorem{Definition}{Definition}[section]
-\newtheorem{Satz}{Satz}[chapter]
+\newtheorem{Satz}{Satz}[section]
 
 \setcounter{chapter}{-1}
 \chapter{Wichtige Begriffe aus der Berechenbarkeitstheorie}
 \textbf{Kernfrage: Ist ein Problem algorithmisch lösbar?}
+
 \begin{Definition}[Turingmaschine]
 Eine \textcolor{blue}{deterministische Turingmaschine} (DTM) (oder ein det. Turingprogramm) $M$ ist ein 5-Tupel $M=(Z,\Sigma,\delta,z_a,z_e)$ mit:
 \begin{itemize}
@@ -72,7 +73,7 @@ Formal: $f \in \mathcal{O}(g) \Leftrightarrow \exists c>0 \, \exists n_0 \in \ma
 \end{Definition}
 
 \begin{Definition}[Zeitaufwand von DTM-Programmen]
-Sei $M$ eine DTM über Alphabet $\Sigma$. Der \textcolor{blue}{Zeitaufwand} $t_M(w)$ von $M$ bei Eingabe $w \in \Sigma^*$ ist
+Sei $M$ eine DTM über dem Alphabet $\Sigma$. Der \textcolor{blue}{Zeitaufwand} $t_M(w)$ von $M$ bei Eingabe $w \in \Sigma^*$ ist
 \begin{flalign*}
 t_M(w)=
 \begin{cases}
@@ -90,11 +91,62 @@ $\textcolor{blue}{\textsf{DTIME(f)}}=\{L\subseteq \Sigma^* \mid \text{$L$ ist en
 \end{Definition}
 
 \begin{Definition}[Komplexitätsklasse \textsf{P}]
-$\textsf{P} = \bigcup\limits_{k=0}^\infty \textsf{DTIME}(n^k)$ ist die Klasse aller in (deterministisch) polynomiellem Zeitaufwand lösbaren (Entscheidungs-) Probleme.  \textsf{P} ist also die Klasse von Problemen, die effizient gelöst werden können.
+$\textsf{P} = \bigcup\limits_{k=0}^\infty \textsf{DTIME}(n^k)$ ist die Klasse aller in (deterministisch) \textbf{p}olynomiellem Zeitaufwand lösbaren (Entscheidungs-) Probleme.  \textsf{P} ist also die Klasse von Problemen, die effizient gelöst werden können.
 \end{Definition}
 
 \begin{Definition}[Komplexitätsklasse \textsf{EXPTIME}]
 $\textsf{EXPTIME} = \bigcup\limits_{k=0}^\infty \textsf{DTIME}(2^{n^k})$ ist die Klasse aller in (deterministisch) exponentiellem Zeitaufwand lösbaren (Entscheidungs-) Probleme. (Es gilt: $\textsf{P}\subseteq \textsf{EXPTIME}$)
 \end{Definition}
+
+\begin{Definition}[Nichtdeterministische Turingmaschine]
+Eine \textcolor{blue}{nichtdeterministische Turingmaschine} (NTM) (oder ein nichtdet. Turingprogramm) $M$ ist ein 5-Tupel $M=(Z,\Sigma,\delta,z_a,z_e)$ mit:
+\begin{itemize}
+\item $Z$,$z_a$,$z_e$,$\Sigma$ sind definiert wie bei einer deterministischen Turingmaschine
+\item $\delta \subseteq (Z \times \Sigma) \times (Z \times \Sigma \times \{+1,-1,0\})$ ist eine \textcolor{red}{Relation}, die \textcolor{blue}{Übergangsrelation} 
+\end{itemize}
+In einem nichtdeterministischen Turingprogramm $\delta$ kann es zu einem Paar $(z,x)\in Z \times \Sigma$ mehr als einen Befehl mit der linken Seite $z,x$ geben.
+\end{Definition}
+
+\begin{Definition}[Nichtdeterministische Berechnung]
+Jedem Eingabewort $w\in \Sigma^*$ kann man einen \glqq Berechnungsbaum \grqq zuordnen, dessen maximale Pfade den möglichen Berechnungen entsprechen:
+\begin{itemize}
+\item Die Wurzel des Berechnungsbaums ist mit der Anfangskonfiguration $z_a w$ beschriftet
+\item Ist $v$ ein Knoten des Baums, der mit der Konfiguration $K = \alpha zx \beta$ markiert ist und ist $\delta(z,x) = \{ (z_1,x_1,\lambda_1),\ldots,(z_r,x_r,\lambda_r)\}$, so hat $v$ genau $r$ Söhne, die jeweils mit den Nachfolgekonfigurationen $K_i$ von $K$ bezüglich $(z_i,x_i,\lambda_i)$ beschriftet sind, $i=1,\ldots,r$.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Nichtdeterministische Entscheidbarkeit]
+Eine NTM $M$ entscheidet die Menge $L\subseteq \Sigma^*$, falls der Berechnungsbaum jedes Eingabewortes $w\in \Sigma^*$ endlich ist und für $w\in L$ mindestens einen erfolgreichen Berechnungspfad enthält.
+\end{Definition}
+
+\begin{Satz}
+Sei $L\subseteq \Sigma^*$. Dann ist $L$ genau dann (deterministisch) entscheidbar, wenn $L$ nichtdeterministisch entscheidbar ist.
+\end{Satz}
+
+\begin{Definition}[Zeitaufwand von NTM-Programmen]
+Sei $M$ eine NTM über dem Alphabet $\Sigma$. Der \textcolor{blue}{Zeitaufwand} $t_M(w)$ von $M$ bei Eingabe $w \in \Sigma^*$ ist
+\begin{flalign*}
+t_M(w)=
+\begin{cases}
+\parbox[t]{0.5\textwidth}{Tiefe des Berechnungsbaumes von $M$ bei Eingabe $w$}&\text{falls Baum endlich}\\
+\infty&\text{sonst}\\
+\end{cases}&&
+\end{flalign*}
+Der \textcolor{blue}{Zeitaufwand} $t_M(n)$ von $M$ bei Eingaben der Codierungslänge $n$ ist\\
+$t_M(n)=\max \{t_M(w)|w\in\Sigma^n\}$
+\end{Definition}
+
+\begin{Definition}
+Es sei $f : \mathbb{N} \rightarrow \mathbb{N}$ eine Funktion. Mit \textcolor{blue}{\textsf{NTIME($f$)}} bezeichnen wir die Menge aller Entscheidungsprobleme, die sich durch eine NTM $M$ mit Zeitaufwand $t_m = O(f)$ entscheiden lassen:\\
+$\textcolor{blue}{\textsf{NTIME(f)}}=\{L\subseteq \Sigma^* \mid \text{$L$ ist entscheidbar durch eine NTM $M$ mit $t_m=\mathcal{O}(f)$} \}$
+\end{Definition}
+
+\begin{Definition}[Komplexitätsklasse \textsf{NP}]
+$\textsf{NP} = \bigcup\limits_{k=0}^\infty \textsf{NTIME}(n^k)$ ist die Klasse aller in \textbf{n}ichtdeterministisch \textbf{p}olynomiellem Zeitaufwand lösbaren (Entscheidungs-) Probleme.
+\end{Definition}
+
+\begin{Satz}
+$\textsf{P}\subseteq \textsf{NP} \subseteq \textsf{EXPTIME}$
+\end{Satz}
 \chapter{Formale Sprachen}
 \end{document}
