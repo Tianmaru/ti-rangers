@@ -15,6 +15,7 @@
 
 \newtheorem{Definition}{Definition}[section]
 \newtheorem{Satz}{Satz}[section]
+\newtheorem{Lemma}{Lemma}[section]
 
 \setcounter{chapter}{-1}
 \chapter{Wichtige Begriffe aus der Berechenbarkeitstheorie}
@@ -147,6 +148,28 @@ $\textsf{NP} = \bigcup\limits_{k=0}^\infty \textsf{NTIME}(n^k)$ ist die Klasse a
 
 \begin{Satz}
 $\textsf{P}\subseteq \textsf{NP} \subseteq \textsf{EXPTIME}$
+\end{Satz}
+
+\begin{Definition}[Polynomielle Reduktion]
+Seien $L_1 \subseteq \Sigma_1^*$, $L_2 \subseteq \Sigma_2^*$ zwei Entscheidungsprobleme. $L_1$ ist auf $L_2$ \textcolor{blue}{polynomiell reduzierbar}, wenn es eine überall definierte, polynomiell berechenbare Funktion $f:\Sigma_1^* \rightarrow \Sigma_2^*$ gibt, so dass für alle $x\in\Sigma_1^*$ gilt:
+\begin{equation*}
+x\in L_1 \Leftrightarrow f(x) \in L_2
+\end{equation*}
+Ist $L_1$ polynomiell reduzierbar auf $L_2$ via $f$, so schreiben wir: $L_1 \leq_p L_2$
+\end{Definition}
+
+\begin{Definition}[\textsf{NP}-Vollständigkeit]
+Es sei $L\subseteq\Sigma^*$. $L$ heißt \textcolor{blue}{\textsf{NP}-vollständig}, falls gilt:
+\begin{enumerate}
+\item[(i)] $L\in \textsf{NP}$
+\item[(ii)] $\forall M\in\textsf{NP}: M\leq_p L$
+\end{enumerate}
+\end{Definition}
+\begin{Lemma}
+Ist $L$ \textsf{NP}-vollständig, so gilt: $\L \in \textsf{P} \Leftrightarrow \textsf{P} = \textsf{NP}$
+\end{Lemma}
+\begin{Satz}[Satz von Cook und Levin]
+\textsf{SAT} ist \textsf{NP}-vollständig.
 \end{Satz}
 \chapter{Formale Sprachen}
 \end{document}
