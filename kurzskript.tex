@@ -7,8 +7,7 @@
 
 \begin{document}
 \title{Theoretische Informatik {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen}
-\subtitle{Kurzskript zur Prüfungsvorbereitung}
-\author{Bjarne Hiller}
+\subtitle{Kurzskript zur Vorlesung von Van Bang Le}
 
 \maketitle
 \tableofcontents
@@ -150,6 +149,7 @@ $\textsf{NP} = \bigcup\limits_{k=0}^\infty \textsf{NTIME}(n^k)$ ist die Klasse a
 $\textsf{P}\subseteq \textsf{NP} \subseteq \textsf{EXPTIME}$
 \end{Satz}
 
+\section{Polynomielle Reduktion und \textsf{NP}-Vollständigkeit}
 \begin{Definition}[Polynomielle Reduktion]
 Seien $L_1 \subseteq \Sigma_1^*$, $L_2 \subseteq \Sigma_2^*$ zwei Entscheidungsprobleme. $L_1$ ist auf $L_2$ \textcolor{blue}{polynomiell reduzierbar}, wenn es eine überall definierte, polynomiell berechenbare Funktion $f:\Sigma_1^* \rightarrow \Sigma_2^*$ gibt, so dass für alle $x\in\Sigma_1^*$ gilt:
 \begin{equation*}
@@ -171,5 +171,29 @@ Ist $L$ \textsf{NP}-vollständig, so gilt: $\L \in \textsf{P} \Leftrightarrow \t
 \begin{Satz}[Satz von Cook und Levin]
 \textsf{SAT} ist \textsf{NP}-vollständig.
 \end{Satz}
+\begin{Satz}
+Ist $A$ $\textsf{NP}$-vollständig, $A \leq_p B$ und $B \in \textsf{NP}$, so ist $B$ $\textsf{NP}$-vollständig.
+\end{Satz}
+
+\begin{Satz}
+$\textsf{3-SAT}$ ist $\textsf{NP}$-vollständig.
+\end{Satz}
+
+\begin{Satz}
+$\textsf{CLIQUE}$ ist $\textsf{NP}$-vollständig.
+\end{Satz}
+
+\begin{Satz}
+$\textsf{INDSET}$ und $\textsf{VERTEX COVER}$ sind $\textsf{NP}$-vollständig.
+\end{Satz}
+
+\begin{Satz}
+$\textsf{3-Färbbarkeit}$ ist $\textsf{NP}$-vollständig.
+\end{Satz}
+
+\begin{Satz}
+$\textsf{SUBSET-SUM}$ ist $\textsf{NP}$-vollständig.
+\end{Satz}
+
 \chapter{Formale Sprachen}
 \end{document}
