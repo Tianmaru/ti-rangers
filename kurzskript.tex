@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{color}
+\usepackage{longtable}
 
 \begin{document}
 \title{Theoretische Informatik {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen}
@@ -15,6 +16,8 @@
 \newtheorem{Definition}{Definition}[section]
 \newtheorem{Satz}{Satz}[section]
 \newtheorem{Lemma}{Lemma}[section]
+\newtheorem{Beispiel}{Beispiel}[section]
+
 
 \setcounter{chapter}{-1}
 \chapter{Wichtige Begriffe aus der Berechenbarkeitstheorie}
@@ -195,5 +198,83 @@ $\textsf{3-Färbbarkeit}$ ist $\textsf{NP}$-vollständig.
 $\textsf{SUBSET-SUM}$ ist $\textsf{NP}$-vollständig.
 \end{Satz}
 
+\begin{Definition}[Komplexitätsklasse \textsf{coK}]
+Sei $\textsf{K}$ eine Komplexitätsklasse über dem Alphabet $\Sigma$. Dann heißt
+\begin{equation*}
+\textsf{coK} :=\{L\subseteq\Sigma^* \mid \overline{L} \in K\}
+\end{equation*}
+die Klasse der Sprachen (Entscheidungsprobleme) $L$, deren Komplement $\overline{L}$ in $K$ liegt.
+\end{Definition}
+
+\begin{Satz}
+$\textsf{coP} = \textsf{P}$
+\end{Satz}
+
+\section{Platzkomplexität}
+\begin{Definition}[Speicherbedarf von DTM-Programmen]
+Sei $M$ eine DTM über dem Alphabet $\Sigma$. Der \textcolor{blue}{Speicherbedarf} $s_M(w)$ von $M$ bei Eingabe $w \in \Sigma^*$ ist
+\begin{flalign*}
+s_M(w)=
+\begin{cases}
+\parbox[t]{0.5\textwidth}{Zahl der Bandzellen, die $M$ bei Bearbeitung von Eingabe $w$ besucht}&\text{falls Berechnung abbricht}\\
+\infty&\text{sonst}\\
+\end{cases}&&
+\end{flalign*}
+Der \textcolor{blue}{Speicherbedarf} $s_M(n)$ von $M$ bei Eingaben der Codierungslänge $n$ ist\\
+$s_M(n)=\max \{s_M(w)|w\in\Sigma^n\}$
+\end{Definition}
+
+\begin{Definition}
+Sei $f: \mathbb{N} \rightarrow \mathbb{N}$ eine Funktion.
+\begin{itemize}
+\item
+$\textcolor{blue}{\textsf{DSPACE}(f)}$ ist die Menge aller Entscheidungsprobleme, die sich durch eine DTM $M$ mit Speicherbedarf $s_M = O(f)$ entscheiden lassen.
+\item
+$\textcolor{blue}{\textsf{NSPACE}(f)}$ ist die Menge aller Entscheidungsprobleme, die sich durch eine NTM $M$ mit Speicherbedarf $s_M = O(f)$ entscheiden lassen.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Platzkomplexitätsklassen \textsf{PSPACE} und \textsf{NSPACE}]
+\begin{equation*}
+\textsf{PSPACE} := \bigcup_{k=0}^\infty \textsf{DSPACE}(n^k) \quad \textsf{NSPACE} := \bigcup_{k=0}^\infty \textsf{NSPACE}(n^k)
+\end{equation*}
+\end{Definition}
+
+\begin{Satz}[Satz von Savitch]
+$\textsf{PSPACE}=\textsf{NSPACE}$
+\end{Satz}
+
+\begin{Satz}
+$\textsf{P}\subseteq\textsf{NP}\subseteq\textsf{PSPACE}\subseteq\textsf{EXPTIME}$
+\end{Satz}
+
+\section{Umgang mit schwierigen Problemen}
+\subsection{\textcolor{blue}{Betrachtung von Spezialfällen}}
+Manchmal sind nur spezielle Fälle eines schwierigen Problems praktisch relevant. Für diese kann es möglich sein, sie effizient zu lösen.
+\begin{Beispiel}
+\textsf{SUBSET SUM} ist für {\glqq}super-wachsende{\grqq} Eingaben polynomiell lösbar.
+\end{Beispiel}
+\subsection{\textcolor{blue}{Annäherungsverfahren}}
+Man betrachtet die \textcolor{blue}{Optimierungsversion} des zugehörigen Entscheidungsproblems und probiert die Lösung zu approximieren.
+\begin{Definition}
+Ein \textcolor{blue}{$c$-Approximationsalgorithmus} $A$ (mit Güte $c > 1$) ist ein Algorithmus mit:
+\begin{itemize}
+\item
+Die Laufzeit von $A$ ist polynomiell zur Eingabelänge.
+\item
+Die Ausgabe $v$ von $A$ zur Eingabe $w$ ist eine zulässige Lösung.
+\item
+$c=
+\begin{cases}
+\frac{v}{v^*}& \text{bei Minimierungsproblemen}\\
+\frac{v^*}{v}& \text{bei Maximierungsproblemen}\\
+\end{cases}$, wobei $v^*$ eine optimale Lösung ist.
+\end{itemize}
+\end{Definition}
+\subsection{\textcolor{blue}{Parametrisierte Algorithmen}}
+Komplexe Parameter des Problems werden von der Eingabe getrennt.
+
+\subsection{\textcolor{blue}{Randomisierte Algorithmen}}
+Ein randomisierter Algorithmus hat in seinem Ablauf Zugriff auf eine Quelle von Zufallszahlen.
 \chapter{Formale Sprachen}
 \end{document}
