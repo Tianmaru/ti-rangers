@@ -276,5 +276,106 @@ Komplexe Parameter des Problems werden von der Eingabe getrennt.
 
 \subsection{\textcolor{blue}{Randomisierte Algorithmen}}
 Ein randomisierter Algorithmus hat in seinem Ablauf Zugriff auf eine Quelle von Zufallszahlen.
+
 \chapter{Formale Sprachen}
+\textbf{Kernfrage: Wie können Sprachen beschrieben werden?}
+
+\section{Grundbegriffe}
+
+\begin{Definition}[Alphabete, Wörter, Sprachen]
+\noindent
+\begin{itemize}
+\item
+Ein \textcolor{blue}{Alphabet} $\Sigma$ ist eine nichtleere, endliche Menge.
+\item
+Die Elemente von $\Sigma$ heißen \textcolor{blue}{Zeichen} (Symbole, Buchstaben) des Alphabets.
+\item
+Ein \textcolor{blue}{Wort} $w$ über dem Alphabet $\Sigma$ ist eine endliche Folge von Zeichen aus $\Sigma$.
+\item
+Die \textcolor{blue}{Länge} $|w|$ des Wortes $w$ ist die Anzahl der Zeichen in $w$.
+\item
+Das \textcolor{blue}{leere Wort} $\varepsilon$ bezeichnet das Wort der Länge $0$.
+\item
+$\Sigma^*$ ist die Menge aller Wörter über $\Sigma$.
+\item
+Eine \textcolor{blue}{formale Sprache} über dem Alphabet $\Sigma$ ist eine Teilmenge von $\Sigma^*$.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Grammatik]
+Eine Grammatik ist ein 4-Tupel $G=(N,\Sigma,R,S)$ mit
+\noindent
+\begin{itemize}
+\item
+einem endlichem Alphabet $N$ von \textcolor{blue}{\textbf{N}ichtterminalen},
+\item
+einem endlichen Alphabet $\Sigma$ von \textcolor{blue}{Terminalen}, $N\cap \Sigma = \varnothing$,
+\item
+einer endlichen Menge $R \subseteq (N \cup \Sigma)^* N (N \cup \Sigma)^* \times (N \cup \Sigma)^*$ von (Produktions-) \textcolor{blue}{\textbf{R}egeln},
+\item
+und einem \textcolor{blue}{\textbf{S}tartsymbol} $S\in N$.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}
+Die von einer Grammatik $G=(N,\Sigma,R,S)$ \textcolor{blue}{erzeugte Sprache} ist $L(G)=\{w\in \Sigma^* \mid S \Rightarrow^* w\}$.
+\end{Definition}
+
+\begin{Definition}
+Zwei Grammatiken $G_1=(N_1,\Sigma_1,R_1,S_1)$ und $G_2=(N_2,\Sigma_2,R_2,S_2)$ heißen \textcolor{blue}{äquivalent}, wenn $L(G_1)=L(G_2)$ gilt.
+\end{Definition}
+
+\begin{Satz}
+$L\subseteq\Sigma^*$ ist aufzählbar $\Leftrightarrow$ Es gibt Grammatik $G=(N,\Sigma,R,S)$ mit $L = L(G)$.
+\end{Satz}
+
+\section{Chomsky Hierarchie}
+\begin{Definition}[Typ 0: Unbeschränkte Grammatiken]
+\noindent
+\begin{itemize}
+\item
+Eine Grammatik $G=(N,\Sigma,R,S)$ heißt \textcolor{blue}{unbeschränkt}.
+\item
+Eine Sprache $L$ ist \textcolor{blue}{aufzählbar}, falls es eine unbeschränkte Grammatik $G$ gibt mit $L(G)=L$.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Typ 1: Kontextsensitive Grammatiken]
+\noindent
+\begin{itemize}
+\item
+Eine Grammatik $G=(N,\Sigma,R,S)$ heißt \textcolor{blue}{kontextsensitiv}, wenn für jede Regel $u\rightarrow v$ in $R$ gilt: $|u| \leq |v|$, mit der Ausnahme $S \rightarrow \varepsilon$, falls das Startsymbol $S$ auf keiner rechten Seite einer Regel vorkommt.
+\item
+Eine Sprache $L$ heißt \textcolor{blue}{kontextsensitiv}, falls es eine kontextsensitive Grammatik $G$ gibt mit $L(G)=L$.
+\end{itemize}
+\end{Definition}
+
+\begin{Satz}
+Kontextsensitive Sprachen sind entscheidbar.
+\end{Satz}
+
+\begin{Definition}[Typ 2: Kontextfreie Grammatiken]
+\noindent
+\begin{itemize}
+\item
+Eine Grammatik $G=(N,\Sigma,R,S)$ heißt \textcolor{blue}{kontextfrei}, wenn für jede Regel $u\rightarrow v$ in $R$ gilt: $|u| \in N$.
+\item
+Eine Sprache $L$ heißt \textcolor{blue}{kontextfrei}, falls es eine kontextfreie Grammatik $G$ gibt mit $L(G)=L$.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Typ 3: Reguläre Grammatiken]
+\noindent
+\begin{itemize}
+\item
+Eine Grammatik $G=(N,\Sigma,R,S)$ heißt \textcolor{blue}{regulär} (oder rechtslinear), wenn für jede Regel $u\rightarrow v$ in $R$ gilt: $|u| \in N$ und $v\in\{\varepsilon\}\cup\Sigma\cup\Sigma N$.
+\item
+Eine Sprache $L$ heißt \textcolor{blue}{regulär}, falls es eine reguläre Grammatik $G$ gibt mit $L(G)$.
+\end{itemize}
+\end{Definition}
+
+\begin{Satz}[Chomsky-Hierarchie]
+Typ 3 $\subset$ Typ 2 $\subset$ Typ 1 $\subset$ Typ 0
+\end{Satz}
+
 \end{document}
