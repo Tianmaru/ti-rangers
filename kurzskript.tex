@@ -434,9 +434,9 @@ Zwei endliche Automaten sind \textcolor{blue}{äquivalent}, wenn sie die gleiche
 Zu jedem NEA gibt es einen äquivalenten DEA.\par
 Ist $A=(Z,\Sigma,\delta,z_0,F)$ ein NEA, dann ist der Potenzmengenautomat $A^\prime = (2^Z,\Sigma,\delta^\prime,\{z_0\},F^\prime)$ mit:
 \begin{itemize}
-\item
+\item[$\vartriangleright$]
 $F^\prime=\{M\subseteq Z \mid M \cap F \neq \varnothing \}$
-\item
+\item[$\vartriangleright$]
 $\delta^\prime(M,x)=\bigcup\limits_{z\in M} \delta(z,x)$
 \end{itemize}
 ein DEA mit $L(A)=L(A^\prime)$.
@@ -446,9 +446,9 @@ ein DEA mit $L(A)=L(A^\prime)$.
 Zu jedem DEA $A$ gibt es eine reguläre Grammatik $G$ mit $L(G)=L(A)$.\par
 Ist $A = (Z,\Sigma,\delta,z_0,F)$ ein DEA, dann ist $G = (Z,\Sigma,R,z_0)$ mit
 \begin{itemize}
-\item
+\item[$\vartriangleright$]
 ist $z_0 \in F$, so ist $z_0 \rightarrow \varepsilon \in R$
-\item
+\item[$\vartriangleright$]
 ist $\delta(z,x)=z^\prime$, so ist $z \rightarrow xz^\prime \in R$\par
 ist $z^\prime \in F$, so ist außerdem $z^\prime \rightarrow \varepsilon \in R$
 \end{itemize}
@@ -456,7 +456,7 @@ eine reguläre Grammatik mit $L(G)=L(A)$.
 \end{Satz}
 
 \begin{Satz}
-Zu jeder regulären Grammatik $G$ gibt es einen NEA $A$ mit $L(A)=L(G)$.
+Zu jeder regulären Grammatik $G$ gibt es einen NEA $A$ mit ${L(A)=L(G)}$.
 \end{Satz}
 
 \section{Reguläre Ausdrücke}
@@ -476,4 +476,31 @@ Weitere reguläre Ausdrücke gibt es nicht.
 \end{enumerate}
 \end{Definition}
 
+\begin{Definition}[Semantik regulärer Ausdrücke]
+Sei $x$ ein regulärer Ausdruck über $\Sigma$. Die von $x$ beschriebene Sprache $L(x)$ ist:
+\begin{enumerate}
+\item
+\textcolor{blue}{$L(\varnothing) = \varnothing$} und \textcolor{blue}{$L(\varepsilon) = \{\varepsilon\}$}.
+\item
+Für jedes $a\in\Sigma$ ist \textcolor{blue}{$L(a) = \{a\}$}.
+\item
+\textcolor{blue}{$L(x+y)=L(x)\cup L(y)$}, \textcolor{blue}{$L(xy)=L(x)L(y)$} und \textcolor{blue}{$L(x^*)=L(x)^*$}.
+\end{enumerate}
+\end{Definition}
+
+\begin{Definition}
+Zwei reguläre Ausdrücke $x$, $y$ über $\Sigma$ heißen \textcolor{blue}{äquivalent}, wenn ${L(x)=L(y)}$ gilt, dass heißt wenn sie die gleiche Sprache beschreiben. Schreibweise: ${x \equiv y}$.
+\end{Definition}
+
+\begin{Satz}
+Zu jedem regulären Ausdruck $x$ gibt es eine reguläre Grammatik $G$ mit ${L(G)=L(x)}$. 
+\end{Satz}
+
+\begin{Satz}
+Zu jedem DEA $A$ gibt es einen regulären Ausdruck $r$ mit ${L(r)=L(A)}$.
+\end{Satz}
+
+\begin{Satz}
+$L\subseteq \Sigma^*$ ist regulär genau dann, wenn $L$ aus den Sprachen $\varnothing$, $\{\varepsilon\}$ und $\{a\}$, $a\in\Sigma$, durch Vereinigung $\cup$, Konkatenation (Produkt) und Iteration $^*$ konstruiert werden kann.
+\end{Satz}
 \end{document}
