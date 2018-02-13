@@ -378,4 +378,102 @@ Eine Sprache $L$ heißt \textcolor{blue}{regulär}, falls es eine reguläre Gram
 Typ 3 $\subset$ Typ 2 $\subset$ Typ 1 $\subset$ Typ 0
 \end{Satz}
 
+\section{Endliche Automaten}
+\begin{Definition}[Endliche Automaten]
+Ein \textcolor{blue}{nichtdeterministischer endlicher Automat} (NEA) ist ein $5$-Tupel $A=(Z,\Sigma,\delta,z_0,F)$ mit:
+\begin{itemize}
+\item
+$Z$ endliche Zustandsmenge
+\item
+$z_0 \in Z$ \textcolor{blue}{Anfangszustand}
+\item
+$F \in Z$ Menge der akzeptierenden Zustände (\textcolor{blue}{Endzustände})
+\item
+$\Sigma$ endlichens \textcolor{blue}{Eingabealphabet}
+\item
+$\delta : Z \times \Sigma \rightarrow 2^Z$ \textcolor{blue}{Überführungsrelation}
+\end{itemize}
+Ist die Überführungsrelation eine Funktion, also $\delta : Z \times \Sigma \rightarrow Z$, so ist der endliche Automat \textcolor{blue}{deterministisch} (DEA).
+\end{Definition}
+
+\begin{Definition}[Sprache eines NEA]
+Sei $A=(Z,\Sigma,\delta, z_0,F)$ ein NEA.
+\begin{itemize}
+\item
+Ein \textcolor{blue}{Lauf} von $A$, gesteuert durch Eingabefolge $w=x_0 x_1 \ldots x_n \in \Sigma^*$ ist \textcolor{red}{eine} Folge von Zuständen $z_0$, $z_1$, $\ldots$, $z_{n+1}$ mit $z_{i+1}\textcolor{red}{\in} \delta(z_i,x_i)$, $0 \leq i \leq n$.\par
+Ist $w=\varepsilon$, so besteht der Lauf nur aus dem Anfangszustand $z_0$.
+\item
+Die von $A$ \textcolor{blue}{akzeptierte Sprache} ist
+\begin{flalign*}
+L(A) = \{ w\in \Sigma^* \mid \,&\text{\textcolor{red}{es gibt einen} Lauf von $A$, gesteuert durch $w$,}&\\
+&\text{der zu einem Endzustand führt}\}&
+\end{flalign*}
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Sprache eines DEA]
+Sei $A=(Z,\Sigma,\delta, z_0,F)$ ein DEA.
+\begin{itemize}
+\item
+Ein \textcolor{blue}{Lauf} von $A$, gesteuert durch Eingabefolge $w=x_0 x_1 \ldots x_n \in \Sigma^*$ ist \textcolor{red}{die} Folge von Zuständen $z_0$, $z_1$, $\ldots$, $z_{n+1}$ mit $z_{i+1}\textcolor{red}{=} \delta(z_i,x_i)$, $0 \leq i \leq n$.\par
+Ist $w=\varepsilon$, so besteht der Lauf nur aus dem Anfangszustand $z_0$.
+\item
+Die von $A$ \textcolor{blue}{akzeptierte Sprache} ist
+\begin{flalign*}
+L(A) = \{ w\in \Sigma^* \mid \,&\text{\textcolor{red}{der} Lauf von $A$, gesteuert durch $w$,}&\\
+&\text{führt zu einem Endzustand}\}&
+\end{flalign*}
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}
+Zwei endliche Automaten sind \textcolor{blue}{äquivalent}, wenn sie die gleiche Sprache akzeptieren.
+\end{Definition}
+
+\begin{Satz}
+Zu jedem NEA gibt es einen äquivalenten DEA.\par
+Ist $A=(Z,\Sigma,\delta,z_0,F)$ ein NEA, dann ist der Potenzmengenautomat $A^\prime = (2^Z,\Sigma,\delta^\prime,\{z_0\},F^\prime)$ mit:
+\begin{itemize}
+\item
+$F^\prime=\{M\subseteq Z \mid M \cap F \neq \varnothing \}$
+\item
+$\delta^\prime(M,x)=\bigcup\limits_{z\in M} \delta(z,x)$
+\end{itemize}
+ein DEA mit $L(A)=L(A^\prime)$.
+\end{Satz}
+
+\begin{Satz}
+Zu jedem DEA $A$ gibt es eine reguläre Grammatik $G$ mit $L(G)=L(A)$.\par
+Ist $A = (Z,\Sigma,\delta,z_0,F)$ ein DEA, dann ist $G = (Z,\Sigma,R,z_0)$ mit
+\begin{itemize}
+\item
+ist $z_0 \in F$, so ist $z_0 \rightarrow \varepsilon \in R$
+\item
+ist $\delta(z,x)=z^\prime$, so ist $z \rightarrow xz^\prime \in R$\par
+ist $z^\prime \in F$, so ist außerdem $z^\prime \rightarrow \varepsilon \in R$
+\end{itemize}
+eine reguläre Grammatik mit $L(G)=L(A)$.
+\end{Satz}
+
+\begin{Satz}
+Zu jeder regulären Grammatik $G$ gibt es einen NEA $A$ mit $L(A)=L(G)$.
+\end{Satz}
+
+\section{Reguläre Ausdrücke}
+
+\begin{Definition}[Syntax regulärer Ausdrücke]
+Sei $\Sigma$ ein Alphabet.
+\begin{enumerate}
+\item
+\textcolor{blue}{$\varnothing$} und \textcolor{blue}{$\varepsilon$} sind reguläre Ausdrücke.
+\item
+Für jedes $a\in \Sigma$ ist \textcolor{blue}{$a$} ein regulärer Ausdruck.
+\item
+Sind $x$ und $y$ reguläre Ausdrücke, so sind auch\par
+\textcolor{blue}{$(x)+(y)$}, \textcolor{blue}{$(x)(y)$} und \textcolor{blue}{$(x)^*$} reguläre Ausdrücke.
+\item
+Weitere reguläre Ausdrücke gibt es nicht.
+\end{enumerate}
+\end{Definition}
+
 \end{document}
