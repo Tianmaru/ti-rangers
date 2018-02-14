@@ -6,8 +6,15 @@
 \usepackage{color}
 \usepackage{longtable}
 \usepackage[shortlabels]{enumitem}
+\usepackage{framed}
 
 \newtheoremstyle{example}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{.}%
+  {\newline}{}%
+
+\newtheoremstyle{algorithm}
   {\topsep}{\topsep}%
   {\itshape}{}%
   {\bfseries}{.}%
@@ -17,10 +24,12 @@
 \newtheorem{Definition}{Definition}[section]
 \newtheorem{Satz}{Satz}[section]
 \newtheorem{Lemma}{Lemma}[section]
-\newtheorem{Algorithmus}{Algorithmus}[section]
 
 \theoremstyle{example}
 \newtheorem{Beispiel}{Beispiel}[section]
+
+\theoremstyle{algorithm}
+\newtheorem{Algorithmus}{Algorithmus}[section]
 
 \begin{document}
 \title{Theoretische Informatik {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen}
@@ -532,6 +541,39 @@ Die Relation \textcolor{red}{$\sim_L$} ist eine Äquivalenzrelation auf $\Sigma^
 \begin{Satz}[Myhill \& Nerode]
 $L$ ist regulär $\iff$ $\textsc{Index}(\textcolor{red}{\sim_L})$ ist endlich.
 \end{Satz}
+
+\begin{Algorithmus}[Minimierung endlicher Automaten]
+Sei auf der Zustandsmenge $Z$ eine Äquivalenzrelation wie folgt definiert:
+\begin{equation*}
+z\equiv z^\prime \iff (\forall u\in \Sigma^*: \delta^*(z,u)\in F \Leftrightarrow \delta^*(z^\prime,u)\in F)
+\end{equation*}
+Dann gilt $z\not\equiv z^\prime$ genau dann, wenn:
+\begin{itemize}[$\vartriangleright$]
+\item
+$z\in F$, $z^\prime \not\in F$ oder umgekehrt, oder
+\item
+es gibt ein $a\in\Sigma$ mit $\delta(z,a) \not\equiv \delta(z^\prime, a)$.
+\end{itemize}
+Sei $A=(Z,\Sigma,\delta,z_0,F)$ ein DEA ohne überflüssige Zustände.
+\begin{framed}
+\begin{enumerate}[\color{red}(1)]
+\item
+Markiere alle Paare $\{z,z^\prime\}$ mit: $z\in F$, $z^\prime \not\in F$ oder umgekehrt
+\item
+Für unmarkierte Paare $\{z,z^\prime\}$ prüfe, ob es ein $a\in\Sigma$ gibt mit markiertem Paar $\{\delta(z,a,),\delta(z^\prime,a)\}$.\\
+Wenn ja, dann markiere auch $\{z,z^\prime\}$.
+\item
+Wiederhole Schritt \textcolor{red}{(2)} bis kein neues markiertes Paar mehr entsteht.
+\end{enumerate}
+\end{framed}
+Dann gilt $z\not\equiv z^\prime \Leftrightarrow \{z,z^\prime\}\,\text{ist markiert}$. Den gesuchten Minimalautomat $A^\prime = (Z^\prime, \Sigma,\delta^\prime,z_0^\prime,F^\prime)$ erhält man aus $A$, indem man die $\equiv$-äquivalenten Zustände zusammen zieht.
+\begin{itemize}[$\vartriangleright$]
+\item
+$Z^\prime=\{[z]:z\in Z\}$, $z_0^\prime = [z_0]$, $F^\prime=\{ [z]:z\in F\}$
+\item
+$\delta^\prime([z],a) = [\delta(z,a)]$ für alle $[z]\in Z^\prime$ und $a\in \Sigma$
+\end{itemize}
+\end{Algorithmus}
 
 \begin{Lemma}[Pumping-Lemma für reguläre Sprachen]
 Sei $L$ regulär. Dann existiert eine Zahl $n \in \mathbb{N}$, so dass jedes Wort $w \in L$ mit $|w| \geq n$ eine Zerlegung $w=xyz$ mit folgenden Eigenschaften besitzt:
