@@ -296,7 +296,7 @@ Komplexe Parameter des Problems werden von der Eingabe getrennt.
 
 \subsection{\textcolor{blue}{Randomisierte Algorithmen}}
 Ein randomisierter Algorithmus hat in seinem Ablauf Zugriff auf eine Quelle von Zufallszahlen.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Sprachen}
 \textbf{Kernfrage: Wie können Sprachen beschrieben werden?}
 
@@ -587,7 +587,7 @@ $xy^kz \in L$ für alle $k=0,1,2,\ldots$
 \end{enumerate}
 \end{Lemma}
 
-\begin{Satz}[Abgeschlossenheit]
+\begin{Satz}[Abschlusseigenschaften]
 Die Klasse aller regulären Sprachen über demselben Alphabet ist abgeschlossen unter Vereinigung, Produkt, Stern, Komplement und Schnitt: Sind $L$ und $M$ regulär, so auch $L \cup M$, $LM$, $L^*$, $\overline{L}$ ($= \Sigma^* \setminus L$) und $L \cap M$ regulär.
 \end{Satz}
 
@@ -613,5 +613,57 @@ Gegeben:&DEA $A=(Z,\Sigma,\delta,z_0,F)$.\\
 Frage:&Ist $L(A)$ endlich?\\
 \end{tabular}
 \end{Beispiel}
+
+\section{Kontextfreie Sprachen}
+\begin{Definition}
+Eine kontextfreie Grammatik ist in \textcolor{blue}{Chomsky-Normalform} (CNF), wenn alle Regeln von der Form $X\rightarrow YZ$ oder $X \rightarrow a$ für $X, Y, Z \in N$ und $a\in \Sigma$ sind.
+\end{Definition}
+
+\begin{Lemma}[Pumping-Lemma für kontextfreie Sprachen]
+Sei $L$ kontextfrei. Dann existiert eine Zahl $n \in \mathbb{N}$, so dass jedes Wort $w \in L$ mit $|w| \geq n$ eine Zerlegung $w=uvxyz$ mit folgenden Eigenschaften besitzt:
+\begin{enumerate}[\color{blue}(1)]
+\item
+$|vy|\geq 1$
+\item
+$|vxy| \leq n$
+\item
+$uv^kxy^kz \in L$ für alle $k=0,1,2,\ldots$
+\end{enumerate}
+\end{Lemma}
+
+\begin{Satz}[Abschlusseigenschaften]
+Die Klasse aller kontextfreien Sprachen über demselben Alphabet ist abgeschlossen unter Vereinigung, Produkt und Iteration: Sind $L$ und $M$ kontextfrei, so auch $L \cup M$, $LM$ und $L^*$ kontextfrei.\par
+Die Klasse aller kontextfreien Sprachen ist jedoch \underline{nicht} abgeschlossen unter Schnitt und Komplement.
+\end{Satz}
+
+\begin{Definition}[Kellerautomat]
+Ein \textcolor{blue}{nichtdeterministischer Kellerautomat} (NKA) ist ein 7-Tupel $K=(Z,\Sigma,\Gamma,\delta,z_0,\$,F)$ mit:
+\begin{itemize}
+\item
+$Z$ endliche Zustandsmenge
+\item
+$z_0 \in Z$ Anfangszustand
+\item
+$F\subseteq Z$ Menge der akzeptierenden Zustände (Endzustände)
+\item
+$\Sigma$ endliches Eingabealphabet
+\item
+$\Gamma$ endliches Kelleralphabet
+\item
+$\$\in\Gamma$ das Kellerbodensymbol
+\item
+$\delta : Z \times (\Sigma\cup\{\varepsilon\}) \times \Gamma \rightarrow 2^{(Z\cup\Gamma^*)}$ Überführungsrelation
+\end{itemize}
+\end{Definition}
+
+\begin{Satz}[Sprache von NKA's]
+\noindent
+\begin{enumerate}[1)]
+\item
+Jede von einem NKA akzeptierte Sprache ist kontextfrei.
+\item
+Zu jeder kontextfreien Grammatik $G$ existiert ein NKA $K$ mit ${L(G)=L_\varepsilon(K)}$.
+\end{enumerate}
+\end{Satz}
 
 \end{document}
