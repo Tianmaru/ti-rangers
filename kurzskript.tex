@@ -2,9 +2,25 @@
 
 \usepackage[ngerman]{babel} 
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{color}
 \usepackage{longtable}
+\usepackage[shortlabels]{enumitem}
+
+\newtheoremstyle{example}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{.}%
+  {\newline}{}%
+  
+\theoremstyle{definition}
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Satz}{Satz}[section]
+\newtheorem{Lemma}{Lemma}[section]
+\newtheorem{Algorithmus}{Algorithmus}[section]
+
+\theoremstyle{example}
+\newtheorem{Beispiel}{Beispiel}[section]
 
 \begin{document}
 \title{Theoretische Informatik {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen}
@@ -12,11 +28,6 @@
 
 \maketitle
 \tableofcontents
-
-\newtheorem{Definition}{Definition}[section]
-\newtheorem{Satz}{Satz}[section]
-\newtheorem{Lemma}{Lemma}[section]
-\newtheorem{Beispiel}{Beispiel}[section]
 
 
 \setcounter{chapter}{-1}
@@ -433,10 +444,10 @@ Zwei endliche Automaten sind \textcolor{blue}{äquivalent}, wenn sie die gleiche
 \begin{Satz}
 Zu jedem NEA gibt es einen äquivalenten DEA.\par
 Ist $A=(Z,\Sigma,\delta,z_0,F)$ ein NEA, dann ist der Potenzmengenautomat $A^\prime = (2^Z,\Sigma,\delta^\prime,\{z_0\},F^\prime)$ mit:
-\begin{itemize}
-\item[$\vartriangleright$]
+\begin{itemize}[$\vartriangleright$]
+\item
 $F^\prime=\{M\subseteq Z \mid M \cap F \neq \varnothing \}$
-\item[$\vartriangleright$]
+\item
 $\delta^\prime(M,x)=\bigcup\limits_{z\in M} \delta(z,x)$
 \end{itemize}
 ein DEA mit $L(A)=L(A^\prime)$.
@@ -445,10 +456,10 @@ ein DEA mit $L(A)=L(A^\prime)$.
 \begin{Satz}
 Zu jedem DEA $A$ gibt es eine reguläre Grammatik $G$ mit $L(G)=L(A)$.\par
 Ist $A = (Z,\Sigma,\delta,z_0,F)$ ein DEA, dann ist $G = (Z,\Sigma,R,z_0)$ mit
-\begin{itemize}
-\item[$\vartriangleright$]
+\begin{itemize}[$\vartriangleright$]
+\item
 ist $z_0 \in F$, so ist $z_0 \rightarrow \varepsilon \in R$
-\item[$\vartriangleright$]
+\item
 ist $\delta(z,x)=z^\prime$, so ist $z \rightarrow xz^\prime \in R$\par
 ist $z^\prime \in F$, so ist außerdem $z^\prime \rightarrow \varepsilon \in R$
 \end{itemize}
@@ -503,4 +514,62 @@ Zu jedem DEA $A$ gibt es einen regulären Ausdruck $r$ mit ${L(r)=L(A)}$.
 \begin{Satz}
 $L\subseteq \Sigma^*$ ist regulär genau dann, wenn $L$ aus den Sprachen $\varnothing$, $\{\varepsilon\}$ und $\{a\}$, $a\in\Sigma$, durch Vereinigung $\cup$, Konkatenation (Produkt) und Iteration $^*$ konstruiert werden kann.
 \end{Satz}
+
+\section{Reguläre Sprachen}
+
+\begin{Definition}
+Ein vollständig definierter DEA $A$ ist \textcolor{blue}{minimal}, falls für alle zu $A$ äquivalenten vollständig definierten DEA $A^\prime$ gilt: $A^\prime$ enthält mindestens soviele Zustände wie $A$.
+\end{Definition}
+
+\begin{Definition}[Nerode-Relation]
+Sei $L\subseteq\Sigma^*$. Auf der Wortmenge $\Sigma^*$ ist die Relation \textcolor{red}{$\sim_L$} wie folgt definiert:
+\begin{equation*}
+v \textcolor{red}{\sim_L} w \iff (\forall u \in \Sigma^*: vu \in L \Leftrightarrow wu\in L)
+\end{equation*}
+Die Relation \textcolor{red}{$\sim_L$} ist eine Äquivalenzrelation auf $\Sigma^*$. Die Anzahl der Äquivalenzklassen heißt der \textcolor{blue}{Myhill-Nerode-Index} von $\sim_L$. Schreibweise: \textcolor{blue}{$\textsc{Index}(\textcolor{red}{\sim_L})$}
+\end{Definition}
+
+\begin{Satz}[Myhill \& Nerode]
+$L$ ist regulär $\iff$ $\textsc{Index}(\textcolor{red}{\sim_L})$ ist endlich.
+\end{Satz}
+
+\begin{Lemma}[Pumping-Lemma für reguläre Sprachen]
+Sei $L$ regulär. Dann existiert eine Zahl $n \in \mathbb{N}$, so dass jedes Wort $w \in L$ mit $|w| \geq n$ eine Zerlegung $w=xyz$ mit folgenden Eigenschaften besitzt:
+\begin{enumerate}[\color{blue}(1)]
+\item
+$|y|\geq 1$
+\item
+$|xy| \leq n$
+\item
+$xy^kz \in L$ für alle $k=0,1,2,\ldots$
+\end{enumerate}
+\end{Lemma}
+
+\begin{Satz}[Abgeschlossenheit]
+Die Klasse aller regulären Sprachen über demselben Alphabet ist abgeschlossen unter Vereinigung, Produkt, Stern, Komplement und Schnitt: Sind $L$ und $M$ regulär, so auch $L \cup M$, $LM$, $L^*$, $\overline{L}$ ($= \Sigma^* \setminus L$) und $L \cap M$ regulär.
+\end{Satz}
+
+\begin{Beispiel}[Wichtige Entscheidungsprobleme regulärer Sprachen]
+\begin{tabular}{ll}
+\multicolumn{2}{l}{\textbf{Das Wortproblem}}\\
+Gegeben:&DEA $A=(Z,\Sigma,\delta,z_0,F)$ und $w\in\Sigma^*$.\\
+Frage:&Ist $w\in L(A)$?\\
+\end{tabular}\newline
+\begin{tabular}{ll}
+\multicolumn{2}{l}{\textbf{Äquivalenztest}}\\
+Gegeben:&DEA's $A=(Z,\Sigma,\delta,z_0,F)$ und $A^\prime=(Z^\prime,\Sigma,\delta^\prime,z_0^\prime,F^\prime)$.\\
+Frage:&Ist $L(A) = L(A^\prime)$?\\
+\end{tabular}\newline
+\begin{tabular}{ll}
+\multicolumn{2}{l}{\textbf{Leerheitstest}}\\
+Gegeben:&DEA $A=(Z,\Sigma,\delta,z_0,F)$.\\
+Frage:&Ist $L(A) = \varnothing$?\\
+\end{tabular}\newline
+\begin{tabular}{ll}
+\multicolumn{2}{l}{\textbf{Endlichkeitstest}}\\
+Gegeben:&DEA $A=(Z,\Sigma,\delta,z_0,F)$.\\
+Frage:&Ist $L(A)$ endlich?\\
+\end{tabular}
+\end{Beispiel}
+
 \end{document}
