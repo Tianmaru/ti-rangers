@@ -676,7 +676,7 @@ Zu jeder kontextfreien Grammatik $G$ existiert ein NKA $K$ mit ${L(G)=L_\varepsi
 
 \section{Operationelle Semantik}
 \textbf{\textsf{Wie entsteht der Effekt eines Programms?}}\\
-Die Bedeutung eines Programms wird angegeben als Sequenz von Schritten, die Zustandstransformationen eines abstrakten Maschinenmodells beschreiben. Über Axiome und Schlussregeln kann so das Verhalten des Programms aus dem Verhalten seiner Komponenten hergeleitet werden.\\
+Die Bedeutung eines Programms wird angegeben als Sequenz von Schritten, die Zustandstransformationen eines abstrakten Maschinenmodells beschreiben. Über Axiome und Schlussregeln kann so das Verhalten des Programms aus dem Verhalten seiner Komponenten hergeleitet werden. Formale operationelle Semantik ermöglicht die Argumentation über Terminierung, semantische Äquivalenz, Determiniertheit und Korrektheit einer Übersetzung.\\
 \textbf{Anwendung:} Vergleich von Systemen, Model Checking
 
 \subsection{Natural Semantics (Big Step)}
@@ -697,13 +697,34 @@ Geignet für Nichtdeterminismus und Parallelität.
 \section{Denotationelle Semantik}
 \textbf{\textsf{Was ist der Effekt eines Programms?}}\\
 Die Bedeutung eines Programms wird angegeben durch mathematische Formalismen wie Funktionen, Relationen und Gleichungen.\\
-\textbf{Anwendung:} Statische Analyse
+\textbf{Anwendung:} Statische Analyse (erhalten von Informationen über die Semantik eines Programms ohne dessen Ausführung)
+
+\subsection{Direct-Style-Semantik}
+\begin{itemize}
+\item
+\textcolor{blue}{kompositional}: Semantik eines Konstrukts allein auf der Basis seiner Teilkonstrukte definiert
+\item
+Kleinste \textcolor{blue}{Fixpunkte} werden zur Definition der Semantik von Schleifen verwendet
+\item
+Fixpunkttheorie liefert Existenz solcher Fixpunkte
+\end{itemize}
 
 \section{Axiomatische Semantik}
 \textbf{\textsf{Was lässt sich über den Effekt eines Programms aussagen?}}\\
 Die Bedeutung eines Programms wird angegeben durch Logische Aussagen und Beweiskalküle.\\
 \textbf{Anwendung:} Programmverifikation
 
+\subsection{Hoare-Kalkül}
+
+\begin{Definition}[Hoare-Tripel]
+$\{P\}\,S\,\{S\}$ heißt Hoare-Tripel, wobei $P$ die Vorbedingungen, $S$ ein Programmsegment und $Q$ die Nachbedingungen bezeichnet.
+\begin{itemize}
+\item Partielle Korrektheit\\
+Wenn $S$ terminiert und vor Abarbeitung von $S$ die Aussage $P$ gilt, so gilt nach der Abarbeitung von $S$ die Aussage $Q$.
+\item Totale Korrektheit\\
+Wenn vor Abarbeitung von $S$ die Aussage $P$ gilt, dann terminiert $S$ und nach der Abarbeitung von $S$ gilt die Aussage $Q$.
+\end{itemize}
+\end{Definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Systeme}
 {\Large\textbf{\textsf{Wie kann man Systeme modellieren?}}}
