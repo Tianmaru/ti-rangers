@@ -32,16 +32,18 @@
 \newtheorem{Algorithmus}{Algorithmus}[section]
 
 \begin{document}
-\title{Theoretische Informatik {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen}
-\subtitle{Kurzskript zur Vorlesung von Van Bang Le}
+% {\uppercase\expandafter{\romannumeral1}}:\\Komplexität und formale Sprachen
+\title{Theoretische Informatik}
+\subtitle{Kurzskript zu den Vorlesungen von}
+\author{Prof. Van Bang Le \and Prof. Karsten Wolf}
 
 \maketitle
 \tableofcontents
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setcounter{chapter}{-1}
 \chapter{Wichtige Begriffe aus der Berechenbarkeitstheorie}
-\textbf{Kernfrage: Ist ein Problem algorithmisch lösbar?}
+\paragraph{Ist ein Problem algorithmisch lösbar?}
 
 \begin{Definition}[Turingmaschine]
 Eine \textcolor{blue}{deterministische Turingmaschine} (DTM) (oder ein det. Turingprogramm) $M$ ist ein 5-Tupel $M=(Z,\Sigma,\delta,z_a,z_e)$ mit:
@@ -72,9 +74,10 @@ Eine Menge $A\subseteq \mathbb{N}$ (bzw. $A\subseteq \mathbb{N}^k$ oder $A\subse
 berechenbar ist.
 \end{Definition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Komplexität}
+\paragraph{Wie schwierig ist ein lösbares Problem?}
 
-\textbf{Kernfrage: Wie schwierig ist ein lösbares Problem?}
 \section{Graphen}
 \begin{Definition}
 Ein (ungerichteter, einfacher) Graph $G$ ist ein Paar $G=(V,E)$ bestehend aus \textcolor{blue}{Knotenmenge} $V$ und \textcolor{blue}{Kantenmenge} $E\subseteq \binom{V}{2}$.\\
@@ -296,9 +299,10 @@ Komplexe Parameter des Problems werden von der Eingabe getrennt.
 
 \subsection{\textcolor{blue}{Randomisierte Algorithmen}}
 Ein randomisierter Algorithmus hat in seinem Ablauf Zugriff auf eine Quelle von Zufallszahlen.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Sprachen}
-\textbf{Kernfrage: Wie können Sprachen beschrieben werden?}
+\paragraph{Wie können Sprachen beschrieben werden?}
 
 \section{Grundbegriffe}
 
@@ -666,4 +670,56 @@ Zu jeder kontextfreien Grammatik $G$ existiert ein NKA $K$ mit ${L(G)=L_\varepsi
 \end{enumerate}
 \end{Satz}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Semantik von Programmiersprachen}
+\paragraph{Welche (rechnerische) Bedeutung hat ein Programm?}
+
+%\section{Eine einfache Programmiersprache: $W$}
+
+\section{Operationelle Semantik}
+\paragraph{Wie entsteht der Effekt eines Programms?}
+Bedeutung eines Programms wird angegeben als Sequenz von Schritten, die Zustandstransformationen eines abstrakten Maschinenmodells beschreiben.
+Anwendung: Vergleich von Systemen, Model Checking
+
+\section{Denotationelle Semantik}
+\paragraph{Was ist der Effekt eines Programms?}
+Bedeutung eines Programms wird angegeben durch mathematische Formalismen wie Funktionen, Relationen und Gleichungen.
+Anwendung: Statische Analyse
+
+\section{Axiomatische Semantik}
+\paragraph{Was lässt sich über den Effekt eines Programms aussagen?}
+Bedeutung eines Programms wird angegeben durch Logische Aussagen und Beweiskalküle.
+Anwendung: Programmverifikation
+
+\chapter{Formale Systeme}
+\section{Prozessalgebra}
+\section{Petri-Netze}
+\begin{Definition}[Petri-Netz]
+Ein \textcolor{blue}{Petri-Netz} ist ein $5$-Tupel $N=(P,T,F,W,m_0)$ mit:
+\begin{itemize}
+\item
+$P$ ist eine endliche Menge von \textcolor{blue}{Stellen} (\textit{Places})
+\item
+$T$ ist eine endliche Menge von \textcolor{blue}{Transitionen}
+\item
+$P\cap T = \varnothing$
+\item
+$P\cup T$ ist die Menge der \textcolor{blue}{Knoten}
+\item
+$F \subseteq (P\times T) \cup (T \times P)$ ist eine endliche Menge von \textcolor{blue}{Bögen} (\textit{flow relations})
+\item
+$W: F \rightarrow \mathbb{N} \setminus \{0\}$ sind die \textcolor{blue}{Bogengewichte} (\textit{Weights}) 
+\item
+$m_0: P \rightarrow \mathbb{N}$ ist die \textcolor{blue}{Anfangsmarkierung}
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Bereiche von Knoten]
+\noindent
+\begin{enumerate}[(a)]
+\item
+Der \textcolor{blue}{Vorbereich} eines Knotens $x$ ist $\bullet x = \{y \mid (y,x) \in F\}$.\item
+Der \textcolor{blue}{Nachbereich} eines Knotens $x$ ist $x\bullet = \{y \mid (x,y) \in F\}$.
+\end{enumerate}
+\end{Definition}
 \end{document}
