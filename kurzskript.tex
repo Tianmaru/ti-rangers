@@ -7,6 +7,7 @@
 \usepackage{longtable}
 \usepackage[shortlabels]{enumitem}
 \usepackage{framed}
+\usepackage{tabularx}
 
 \newtheoremstyle{example}
   {\topsep}{\topsep}%
@@ -43,8 +44,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setcounter{chapter}{-1}
 \chapter{Wichtige Begriffe aus der Berechenbarkeitstheorie}
-\paragraph{Ist ein Problem algorithmisch lösbar?}
-
+{\Large\textbf{\textsf{Ist ein Problem algorithmisch lösbar?}}}
 \begin{Definition}[Turingmaschine]
 Eine \textcolor{blue}{deterministische Turingmaschine} (DTM) (oder ein det. Turingprogramm) $M$ ist ein 5-Tupel $M=(Z,\Sigma,\delta,z_a,z_e)$ mit:
 \begin{itemize}
@@ -76,7 +76,7 @@ berechenbar ist.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Komplexität}
-\paragraph{Wie schwierig ist ein lösbares Problem?}
+{\Large\textbf{\textsf{Wie schwierig ist ein lösbares Problem?}}}
 
 \section{Graphen}
 \begin{Definition}
@@ -302,10 +302,9 @@ Ein randomisierter Algorithmus hat in seinem Ablauf Zugriff auf eine Quelle von 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Sprachen}
-\paragraph{Wie können Sprachen beschrieben werden?}
+{\Large\textbf{\textsf{Wie können Sprachen beschrieben werden?}}}
 
 \section{Grundbegriffe}
-
 \begin{Definition}[Alphabete, Wörter, Sprachen]
 \noindent
 \begin{itemize}
@@ -672,26 +671,42 @@ Zu jeder kontextfreien Grammatik $G$ existiert ein NKA $K$ mit ${L(G)=L_\varepsi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Semantik von Programmiersprachen}
-\paragraph{Welche (rechnerische) Bedeutung hat ein Programm?}
-
+{\Large\textbf{\textsf{Welche (rechnerische) Bedeutung hat ein Programm?}}}
 %\section{Eine einfache Programmiersprache: $W$}
 
 \section{Operationelle Semantik}
-\paragraph{Wie entsteht der Effekt eines Programms?}
-Bedeutung eines Programms wird angegeben als Sequenz von Schritten, die Zustandstransformationen eines abstrakten Maschinenmodells beschreiben.
-Anwendung: Vergleich von Systemen, Model Checking
+\textbf{\textsf{Wie entsteht der Effekt eines Programms?}}\\
+Die Bedeutung eines Programms wird angegeben als Sequenz von Schritten, die Zustandstransformationen eines abstrakten Maschinenmodells beschreiben. Über Axiome und Schlussregeln kann so das Verhalten des Programms aus dem Verhalten seiner Komponenten hergeleitet werden.\\
+\textbf{Anwendung:} Vergleich von Systemen, Model Checking
+
+\subsection{Natural Semantics (Big Step)}
+\textbf{\textsf{Jedes Programm ist eine Zustandstransformation.}}\\
+\begin{tabularx}{\linewidth}{lX}
+$\langle C,s\rangle\rightarrow s^\prime$&Gestartet in Zustand $s$ terminiert Programm $C$ und führt zu Zustand $s^\prime$\\
+\end{tabularx}
+Geeignet für Blockstrukturen.
+
+\subsection{Structural Operational Semantics (Small Step)}
+\textbf{\textsf{Jedes Programm ist eine Folge elementarer Zustandstransformation.}}\\
+\begin{tabularx}{\linewidth}{lX}
+$\langle C,s\rangle\rightarrow s^\prime$&Gestartet in Zustand $s$ terminiert Programm $C$ und führt zu Zustand $s^\prime$\\
+$\langle C,s\rangle\rightarrow \langle C^\prime,s^\prime\rangle$&Die Ausführung von Programm $C$ im Zustand $s$ kann auf die Ausführung von Programm $C^\prime$ im Zustand $s^\prime$ reduziert werden\\
+\end{tabularx}
+Geignet für Nichtdeterminismus und Parallelität.
 
 \section{Denotationelle Semantik}
-\paragraph{Was ist der Effekt eines Programms?}
-Bedeutung eines Programms wird angegeben durch mathematische Formalismen wie Funktionen, Relationen und Gleichungen.
-Anwendung: Statische Analyse
+\textbf{\textsf{Was ist der Effekt eines Programms?}}\\
+Die Bedeutung eines Programms wird angegeben durch mathematische Formalismen wie Funktionen, Relationen und Gleichungen.\\
+\textbf{Anwendung:} Statische Analyse
 
 \section{Axiomatische Semantik}
-\paragraph{Was lässt sich über den Effekt eines Programms aussagen?}
-Bedeutung eines Programms wird angegeben durch Logische Aussagen und Beweiskalküle.
-Anwendung: Programmverifikation
+\textbf{\textsf{Was lässt sich über den Effekt eines Programms aussagen?}}\\
+Die Bedeutung eines Programms wird angegeben durch Logische Aussagen und Beweiskalküle.\\
+\textbf{Anwendung:} Programmverifikation
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Systeme}
+{\Large\textbf{\textsf{Wie kann man Systeme modellieren?}}}
 \section{Prozessalgebra}
 \section{Petri-Netze}
 \begin{Definition}[Petri-Netz]
