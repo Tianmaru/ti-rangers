@@ -8,6 +8,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{framed}
 \usepackage{tabularx}
+\usepackage{syntax}
 
 \newtheoremstyle{example}
   {\topsep}{\topsep}%
@@ -672,7 +673,30 @@ Zu jeder kontextfreien Grammatik $G$ existiert ein NKA $K$ mit ${L(G)=L_\varepsi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Semantik von Programmiersprachen}
 {\Large\textbf{\textsf{Welche (rechnerische) Bedeutung hat ein Programm?}}}
-%\section{Eine einfache Programmiersprache: $W$}
+
+\section{Eine einfache Programmiersprache: $W$}
+\setlength{\grammarindent}{3cm} % increase separation between LHS/RHS
+\begin{grammar}
+<cmd_seq> ::= <command>
+\alt <cmd_seq> `;' <command>
+
+<command> ::= <identifier> `=' <expression>
+\alt `skip'
+\alt `while' <expression> `do' <cmd_seq> `end'
+\alt `if' <expression> `then' <cmd_seq> `end'
+\alt `if' <expression> `then' <cmd_seq> `else' <cmd_seq> `end'
+
+<expression> ::= <term>
+\alt <expression> (`+' | `-' | `OR') <term>
+
+<term> ::= <factor>
+\alt term (`*'  | `/' | `AND') <factor>
+
+<factor> ::= <number> | <identifier>
+\alt `true' | `false' | `NOT' <factor>
+\alt `(' <expression> `)'
+\alt <expression> (`<' | `>' | `<=' | `>=' | `<>' | `=') <expression>
+\end{grammar}
 
 \section{Operationelle Semantik}
 \textbf{\textsf{Wie entsteht der Effekt eines Programms?}}\\
