@@ -9,6 +9,9 @@
 \usepackage{framed}
 \usepackage{tabularx}
 \usepackage{syntax}
+\usepackage{proof}
+\usepackage{MnSymbol}
+\usepackage{multirow}
 
 \newtheoremstyle{example}
   {\topsep}{\topsep}%
@@ -710,6 +713,25 @@ $\langle C,s\rangle\rightarrow s^\prime$&Gestartet in Zustand $s$ terminiert Pro
 \end{tabularx}
 Geeignet für Blockstrukturen.
 
+\begin{framed}
+\begin{tabularx}{\linewidth}[t]{lX}
+$[\text{skip}_\text{NatS}]$&$\langle \text{skip},s\rangle\rightarrow s$\\
+$[\text{ass}_\text{NatS}]$&$\langle x:=E,s\rangle\rightarrow s[x\rightarrow \mathbb{A} \lsem E \rsem (s)]$\\
+$[\text{comp}_\text{NatS}]$&\infer{\langle C_1;C_2,s \rangle \rightarrow s^{\prime\prime}}{\langle C_1,s \rangle \rightarrow s^\prime & \langle C_2,s^\prime \rangle \rightarrow s^{\prime\prime}}\\
+$[\text{if}^1_\text{NatS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow s^\prime}{\langle C_1,s\rangle\rightarrow s^\prime & \mathbb{B}\lsem b \rsem (s) = T}\\
+$[\text{if}^2_\text{NatS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow s^\prime}{\langle C_2,s\rangle\rightarrow s^\prime & \mathbb{B}\lsem b \rsem (s) = F}\\
+$[\text{while}^1_\text{NatS}]$&\infer{\langle \text{while $b$ do $C$ end},s\rangle\rightarrow s^{\prime\prime}}{\langle C,s\rangle\rightarrow s^\prime & \langle \text{while $b$ do $C$ end},s^\prime\rangle\rightarrow s^{\prime\prime} &\mathbb{B}\lsem b \rsem (s) = T}\\
+$[\text{while}^2_\text{NatS}]$&\infer{\langle \text{while $b$ do $C$ end},s\rangle\rightarrow s}{\mathbb{B}\lsem b \rsem (s) = F}\\
+\end{tabularx}
+\begin{equation*}
+\mathbb{S}_\text{NatS} \lsem C \rsem (s) :=
+\begin{cases}
+s^\prime&\langle C, s \rangle\rightarrow s^\prime\\
+\bot&\text{sonst}\\
+\end{cases}
+\end{equation*}
+\end{framed}
+
 \subsection{Structural Operational Semantics (Small Step)}
 \textbf{\textsf{Jedes Programm ist eine Folge elementarer Zustandstransformation.}}\\
 \begin{tabularx}{\linewidth}{lX}
@@ -717,6 +739,26 @@ $\langle C,s\rangle\rightarrow s^\prime$&Gestartet in Zustand $s$ terminiert Pro
 $\langle C,s\rangle\rightarrow \langle C^\prime,s^\prime\rangle$&Die Ausführung von Programm $C$ im Zustand $s$ kann auf die Ausführung von Programm $C^\prime$ im Zustand $s^\prime$ reduziert werden\\
 \end{tabularx}
 Geignet für Nichtdeterminismus und Parallelität.
+
+\begin{framed}
+\begin{tabularx}{\linewidth}[t]{lX}
+$[\text{skip}_\text{SOS}]$&$\langle \text{skip},s\rangle\rightarrow s$\\
+$[\text{ass}_\text{SOS}]$&$\langle x:=E,s\rangle\rightarrow s[x\rightarrow \mathbb{A} \lsem E \rsem (s)]$\\
+$[\text{comp}^1_\text{SOS}]$&\infer{\langle C_1;C_2,s \rangle \rightarrow \langle C_2, s^{\prime} \rangle}{\langle C_1,s \rangle \rightarrow s^\prime}\\
+$[\text{comp}^2_\text{SOS}]$&\infer{\langle C_1;C_2,s \rangle \rightarrow \langle C_1^\prime;C_2, s^{\prime} \rangle}{\langle C_1,s \rangle \rightarrow \langle C_1^\prime, s^\prime\rangle}\\
+$[\text{if}^1_{SOS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow \langle C_1, s\rangle}{\mathbb{B}\lsem b \rsem (s) = T}\\
+$[\text{if}^2_{SOS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow \langle C_2, s\rangle}{\mathbb{B}\lsem b \rsem (s) = F}\\
+\multirow{2}{*}{$[\text{while}_{SOS}]$}&$\langle \text{while $b$ do $C$ end},s\rangle\rightarrow$\\
+&$\langle \text{if $b$ then C; while $b$ do $C$ end else skip end},s\rangle$\\
+\end{tabularx}
+\begin{equation*}
+\mathbb{S}_\text{SOS} \lsem C \rsem (s) :=
+\begin{cases}
+s^\prime&\langle C, s \rangle\rightarrow s^\prime\\
+\bot&\text{sonst}\\
+\end{cases}
+\end{equation*}
+\end{framed}
 
 \section{Denotationelle Semantik}
 \textbf{\textsf{Was ist der Effekt eines Programms?}}\\
@@ -749,6 +791,7 @@ Wenn $S$ terminiert und vor Abarbeitung von $S$ die Aussage $P$ gilt, so gilt na
 Wenn vor Abarbeitung von $S$ die Aussage $P$ gilt, dann terminiert $S$ und nach der Abarbeitung von $S$ gilt die Aussage $Q$.
 \end{itemize}
 \end{Definition}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Systeme}
 {\Large\textbf{\textsf{Wie kann man Systeme modellieren?}}}
