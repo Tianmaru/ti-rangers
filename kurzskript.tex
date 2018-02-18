@@ -941,7 +941,42 @@ Nebenläufigkeit
 \end{Definition}
 
 \section{Temporal Logic of Actions (TLA)}
+\begin{tabularx}{\linewidth}{lX}
+Var&Menge von Variablen\\
+Val&Menge von Werten\\
+$s: \text{Var}\rightarrow\text{Val}$&Zustand\\
+$(s_1,s_2)$&Ein Paar von Zuständen ist ein Schritt.\\
+&Eine Folge von Zuständen oder eine Folge von Schritten ist ein Ablauf.\\
+&Eine Menge von Abläufen ist ein System.\\
+\end{tabularx}
 
+\begin{Definition}[Zustandsformel]
+Eine Zustandsformel ist ein Prädikat mit Variablen in Var. Ein Zustand $s$ erfüllt die Zustandsformel $\Phi$, falls $\Phi$ bei der durch $s$ definierten Belegung der Variablen gilt.\\
+Schreibweise: $s \models \Phi$
+\end{Definition}
+
+\begin{Definition}[Schrittformel]
+Eine Schrittformel ist ein Prädikat mit Variablen in $\text{Var} \cup \text{Var}^\prime$. Ein Schritt $(s_1,s_2)$ erfüllt die Schrittformel $\Phi$, falls $\Phi$ bei folgender Belegung $f$ für alle Variablen $v\in\text{Var}$ erfüllt ist:
+\begin{align*}
+f(v)&=s_1(v)&f(v^\prime)&=s_2(v)
+\end{align*}
+\end{Definition}
+
+\begin{Definition}[Ablaufformel]
+Eine Ablaufformel kann zusätzlich Terme wie $\Box\Phi$ enthalten, wobei $\Phi$ eine Schrittformel ist. Dies bedeutet, dass für einen Ablauf ${\sigma = (s_0,s_1,s_2,\ldots)}$ die Schrittformel $\Phi$ für jeden Schritt von $\sigma$ erfüllt ist.
+\end{Definition}
+
+\begin{Definition}[Fairness]
+Eine Schrittformel $\Phi$ ist aktiviert in Zustand $s$, falls es ein $s^\prime$ gibt mit $(s,s^\prime)\models \Phi$.
+\begin{itemize}
+\item
+Weak Fair: $\text{WF}_f(\Phi)$\\
+Wenn im Ablauf $\sigma$ irgendwann $\Phi\land f \not = f^\prime$ aktiviert ist und für immer aktiviert bleibt, so enthält $\sigma$ unendlich viele Schritte, die $\Phi \land f \not = f^\prime$ erfüllen.
+\item
+Strong Fair: $\text{SF}_f(\Phi)$\\
+Wenn im Ablauf $\sigma$ unendlich oft $\Phi\land f \not = f^\prime$ aktiviert ist, so enthält $\sigma$ unendlich viele Schritte, die $\Phi \land f \not = f^\prime$ erfüllen.
+\end{itemize}
+\end{Definition}
 
 \section{Petri-Netze}
 \begin{Definition}[Petri-Netz]
