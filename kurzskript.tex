@@ -1,7 +1,9 @@
 \documentclass{scrreprt}
 
+
 \usepackage[ngerman]{babel} 
 \usepackage[utf8]{inputenc}
+
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{color}
 \usepackage{longtable}
@@ -10,8 +12,8 @@
 \usepackage{tabularx}
 \usepackage{syntax}
 \usepackage{proof}
-\usepackage{MnSymbol}
 \usepackage{multirow}
+\usepackage{stmaryrd}
 
 \newtheoremstyle{example}
   {\topsep}{\topsep}%
@@ -720,15 +722,15 @@ Geeignet für Blockstrukturen.
 \begin{framed}
 \begin{tabularx}{\linewidth}[t]{lX}
 $[\text{skip}_\text{NatS}]$&$\langle \text{skip},s\rangle\rightarrow s$\\
-$[\text{ass}_\text{NatS}]$&$\langle x:=E,s\rangle\rightarrow s[x\rightarrow \mathbb{A} \lsem E \rsem (s)]$\\
+$[\text{ass}_\text{NatS}]$&$\langle x:=E,s\rangle\rightarrow s[x\rightarrow \mathbb{A} \llbracket E \rrbracket (s)]$\\
 $[\text{comp}_\text{NatS}]$&\infer{\langle C_1;C_2,s \rangle \rightarrow s^{\prime\prime}}{\langle C_1,s \rangle \rightarrow s^\prime & \langle C_2,s^\prime \rangle \rightarrow s^{\prime\prime}}\\
-$[\text{if}^1_\text{NatS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow s^\prime}{\langle C_1,s\rangle\rightarrow s^\prime & \mathbb{B}\lsem b \rsem (s) = T}\\
-$[\text{if}^2_\text{NatS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow s^\prime}{\langle C_2,s\rangle\rightarrow s^\prime & \mathbb{B}\lsem b \rsem (s) = F}\\
-$[\text{while}^1_\text{NatS}]$&\infer{\langle \text{while $b$ do $C$ end},s\rangle\rightarrow s^{\prime\prime}}{\langle C,s\rangle\rightarrow s^\prime & \langle \text{while $b$ do $C$ end},s^\prime\rangle\rightarrow s^{\prime\prime} &\mathbb{B}\lsem b \rsem (s) = T}\\
-$[\text{while}^2_\text{NatS}]$&\infer{\langle \text{while $b$ do $C$ end},s\rangle\rightarrow s}{\mathbb{B}\lsem b \rsem (s) = F}\\
+$[\text{if}^1_\text{NatS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow s^\prime}{\langle C_1,s\rangle\rightarrow s^\prime & \mathbb{B}\llbracket b \rrbracket (s) = T}\\
+$[\text{if}^2_\text{NatS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow s^\prime}{\langle C_2,s\rangle\rightarrow s^\prime & \mathbb{B}\llbracket b \rrbracket (s) = F}\\
+$[\text{while}^1_\text{NatS}]$&\infer{\langle \text{while $b$ do $C$ end},s\rangle\rightarrow s^{\prime\prime}}{\langle C,s\rangle\rightarrow s^\prime & \langle \text{while $b$ do $C$ end},s^\prime\rangle\rightarrow s^{\prime\prime} &\mathbb{B}\llbracket b \rrbracket (s) = T}\\
+$[\text{while}^2_\text{NatS}]$&\infer{\langle \text{while $b$ do $C$ end},s\rangle\rightarrow s}{\mathbb{B}\llbracket b \rrbracket (s) = F}\\
 \end{tabularx}
 \begin{equation*}
-\mathbb{S}_\text{NatS} \lsem C \rsem (s) :=
+\mathbb{S}_\text{NatS} \llbracket C \rrbracket (s) :=
 \begin{cases}
 s^\prime&\langle C, s \rangle\rightarrow s^\prime\\
 \bot&\text{sonst}\\
@@ -747,16 +749,16 @@ Geignet für Nichtdeterminismus und Parallelität.
 \begin{framed}
 \begin{tabularx}{\linewidth}[t]{lX}
 $[\text{skip}_\text{SOS}]$&$\langle \text{skip},s\rangle\rightarrow s$\\
-$[\text{ass}_\text{SOS}]$&$\langle x:=E,s\rangle\rightarrow s[x\rightarrow \mathbb{A} \lsem E \rsem (s)]$\\
+$[\text{ass}_\text{SOS}]$&$\langle x:=E,s\rangle\rightarrow s[x\rightarrow \mathbb{A} \llbracket E \rrbracket (s)]$\\
 $[\text{comp}^1_\text{SOS}]$&\infer{\langle C_1;C_2,s \rangle \rightarrow \langle C_2, s^{\prime} \rangle}{\langle C_1,s \rangle \rightarrow s^\prime}\\
 $[\text{comp}^2_\text{SOS}]$&\infer{\langle C_1;C_2,s \rangle \rightarrow \langle C_1^\prime;C_2, s^{\prime} \rangle}{\langle C_1,s \rangle \rightarrow \langle C_1^\prime, s^\prime\rangle}\\
-$[\text{if}^1_{SOS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow \langle C_1, s\rangle}{\mathbb{B}\lsem b \rsem (s) = T}\\
-$[\text{if}^2_{SOS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow \langle C_2, s\rangle}{\mathbb{B}\lsem b \rsem (s) = F}\\
+$[\text{if}^1_{SOS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow \langle C_1, s\rangle}{\mathbb{B}\llbracket b \rrbracket (s) = T}\\
+$[\text{if}^2_{SOS}]$&\infer{\langle \text{if $b$ then $C_1$ else $C_2$ end},s\rangle\rightarrow \langle C_2, s\rangle}{\mathbb{B}\llbracket b \rrbracket (s) = F}\\
 \multirow{2}{*}{$[\text{while}_{SOS}]$}&$\langle \text{while $b$ do $C$ end},s\rangle\rightarrow$\\
 &$\langle \text{if $b$ then C; while $b$ do $C$ end else skip end},s\rangle$\\
 \end{tabularx}
 \begin{equation*}
-\mathbb{S}_\text{SOS} \lsem C \rsem (s) :=
+\mathbb{S}_\text{SOS} \llbracket C \rrbracket (s) :=
 \begin{cases}
 s^\prime&\langle C, s \rangle\rightarrow s^\prime\\
 \bot&\text{sonst}\\
@@ -781,12 +783,12 @@ Fixpunkttheorie liefert Existenz solcher Fixpunkte
 
 \begin{framed}
 \begin{align*}
-\mathbb{S}_\text{DS}\lsem x:=E \rsem (s)&= s[x\rightarrow\mathbb{A}\lsem E\rsem(s)]\\
-\mathbb{S}_\text{DS}\lsem \text{skip} \rsem&= \text{id}\\
-\mathbb{S}_\text{DS}\lsem C_1;C_2 \rsem&= \mathbb{S}_\text{DS}\lsem C_2 \rsem \circ \mathbb{S}_\text{DS}\lsem C_1 \rsem\\
-\mathbb{S}_\text{DS}\lsem \text{if $b$ then $C_1$ else $C_2$ end} \rsem&= \text{cond}(\mathbb{B}\lsem b\rsem,\mathbb{S}_\text{DS}\lsem C_1 \rsem,\mathbb{S}_\text{DS}\lsem C_2 \rsem)\\
-\mathbb{S}_\text{DS}\lsem \text{while $b$ do $C$ end} \rsem&= \text{FIX}(F)\\
-\text{wobei}\,F(g)&=\text{cond}(\mathbb{B}\lsem b\rsem,g \circ \mathbb{S}_\text{DS}\lsem C \rsem,\text{id})
+\mathbb{S}_\text{DS}\llbracket x:=E \rrbracket (s)&= s[x\rightarrow\mathbb{A}\llbracket E\rrbracket(s)]\\
+\mathbb{S}_\text{DS}\llbracket \text{skip} \rrbracket&= \text{id}\\
+\mathbb{S}_\text{DS}\llbracket C_1;C_2 \rrbracket&= \mathbb{S}_\text{DS}\llbracket C_2 \rrbracket \circ \mathbb{S}_\text{DS}\llbracket C_1 \rrbracket\\
+\mathbb{S}_\text{DS}\llbracket \text{if $b$ then $C_1$ else $C_2$ end} \rrbracket&= \text{cond}(\mathbb{B}\llbracket b\rrbracket,\mathbb{S}_\text{DS}\llbracket C_1 \rrbracket,\mathbb{S}_\text{DS}\llbracket C_2 \rrbracket)\\
+\mathbb{S}_\text{DS}\llbracket \text{while $b$ do $C$ end} \rrbracket&= \text{FIX}(F)\\
+\text{wobei}\,F(g)&=\text{cond}(\mathbb{B}\llbracket b\rrbracket,g \circ \mathbb{S}_\text{DS}\llbracket C \rrbracket,\text{id})
 \end{align*}
 \end{framed}
 
@@ -828,10 +830,10 @@ Wenn vor Abarbeitung von $S$ die Aussage $P$ gilt, dann terminiert $S$ und nach 
 \begin{framed}
 \begin{tabularx}{\linewidth}[t]{lX}
 $[\text{skip}_\text{par}]$&$\{ P \}\,\text{skip}\,\{P\}$\\
-$[\text{ass}_\text{par}]$&$\{ P[x\rightarrow \mathbb{A} \lsem E \rsem ] \}\,x:=E\,\{P\}$\\
+$[\text{ass}_\text{par}]$&$\{ P[x\rightarrow \mathbb{A} \llbracket E \rrbracket ] \}\,x:=E\,\{P\}$\\
 $[\text{comp}_\text{par}]$&\infer{\{P\}\, S_1;S_2 \,\{R\}}{\{P\}\,S_1\,\{Q\} & \{Q\}\,S_2\,\{R\}}\\
-$[\text{if}_\text{par}]$&\infer{\{P\}\, \text{if $b$ then $S_1$ else $S_2$ end} \,\{Q\}}{\{P \land \mathbb{B}\lsem b \rsem\}\,S_1\,\{Q\} & \{P \land \lnot\mathbb{B}\lsem b \rsem\}\,S_1\,\{Q\}}\\
-$[\text{while}_\text{par}]$&\infer{\{P\}\, \text{while $b$ do $S$ end} \,\{ P \land \lnot \mathbb{B}\lsem b \rsem\}}{\{P \land \mathbb{B}\lsem b \rsem\}\,S\,\{P\}}\\
+$[\text{if}_\text{par}]$&\infer{\{P\}\, \text{if $b$ then $S_1$ else $S_2$ end} \,\{Q\}}{\{P \land \mathbb{B}\llbracket b \rrbracket\}\,S_1\,\{Q\} & \{P \land \lnot\mathbb{B}\llbracket b \rrbracket\}\,S_1\,\{Q\}}\\
+$[\text{while}_\text{par}]$&\infer{\{I\}\, \text{while $b$ do $S$ end} \,\{ I \land \lnot \mathbb{B}\llbracket b \rrbracket\}}{\{I \land \mathbb{B}\llbracket b \rrbracket\}\,S\,\{I\}}\\
 $[\text{cons}_\text{par}]$&\infer{\{P^\prime\}\, S \,\{Q^\prime\}}{P^\prime \Rightarrow P&\{P\}\,S\,\{Q\} & Q\Rightarrow Q^\prime}\\
 \end{tabularx}
 \end{framed}
@@ -839,7 +841,73 @@ $[\text{cons}_\text{par}]$&\infer{\{P^\prime\}\, S \,\{Q^\prime\}}{P^\prime \Rig
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Formale Systeme}
 {\Large\textbf{\textsf{Wie kann man Systeme modellieren?}}}
+
 \section{Prozessalgebra}
+\begin{Definition}[Prozessalgebra]
+Prozessalgebren sind Formalismen zur Beschreibung und zum Studium nebenläufiger/interaktiver Systeme. 
+\begin{enumerate}
+\item
+Es gibt Prozesse und Aktionen.
+\item
+Ein Prozess kann Aktionen ausführen.
+\item
+Eine Aktion ändert den ausführenden Prozess.
+\item
+$\tau$ bezeichnet eine interne, nach außen nicht sichtbare Aktion.
+\end{enumerate}
+\end{Definition}
+
+\begin{tabularx}{\linewidth}{llX}
+\textit{definition}&$P:=Q$&$P$ verhält sich wie $Q$\\
+\textit{action}&$P:=a.Q$&In $P$ kann Aktion $a$ stattfinden, danach verhält sich $P$ wie $Q$\\
+\textit{choice}&$P:=Q+R$&$P$ kann sich wie $Q$ oder wie $R$ verhalten\\
+\textit{termination}&$P:=0$&In $P$ findet keine Aktion mehr statt\\
+\textit{parallel}&$P:=Q\,\mid\, R$&$R$ und $Q$ arbeiten parallel\\
+\textit{restriction}&$P:=Q\setminus \{a_1,\ldots,a_n\}$&$P$ verhält sich wie $Q$ ohne die Aktionen $a_1,\ldots,a_n$\\
+\textit{relabeling}&$P:=Q[a_1 \leftarrow a_1^\prime,\ldots,a_n \leftarrow a_n^\prime\}$&$P$ verhält sich wie $Q$, wobei einige Aktionen umbenannt wurden\\
+\end{tabularx}
+
+\begin{itemize}
+\item
+\textbf{CSP (Communicating Sequential Processes)}\\
+$?a.P$ Lies ein $a$ aus der Umgebung und verhalte Dich weiter wie $P$\\
+$!a.P$ Schreibe ein $a$ an die Umgebung und verhalte Dich weiter wie $P$
+\item
+\textbf{CCS (Calculus of Communicating Systems)}\\
+Zu jeder Aktion $a$ wird die Existenz einer Komplementäraktion $\overline{a}$ angenommen\\
+Kommunikation ist Synchronisation von $a$ und $\overline{a}$\\
+\end{itemize}
+
+\begin{Definition}[Trace Semantik]
+Eine \textcolor{blue}{Trace} vom Prozess $P$ bezeichnet ein Wort $w$ von Aktionen mit $P-w\rightarrow Q$.
+\begin{align*}
+\text{T}(P)&:=\text{Menge aller Traces von P}&P&=_T Q \Leftrightarrow \text{T}(P)=\text{T}(Q)
+\end{align*}
+\end{Definition}
+
+\begin{Definition}[Completed Trace Semantik]
+Eine Trace $w$ vom Prozess $P$ heißt \textcolor{blue}{vollständig}, falls $P-w\rightarrow Q$ und $Q=0$.
+\begin{align*}
+\text{CT}(P)&:=\text{Menge aller vollständigen Traces von P}\\
+P=_\text{CT} Q &\Leftrightarrow \text{T}(P)=\text{T}(Q) \land \text{CT}(P)=\text{CT}(Q)
+\end{align*}
+\end{Definition}
+
+\begin{Definition}[Failure Semantik]
+$(w,M)$ heißt \textcolor{blue}{failure pair} vom Prozess $P$, falls $P-w\rightarrow Q$ und keine Aktion $a\in M$ ist in $Q$ ausführbar.
+\begin{align*}
+\text{FT}(P)&:=\text{Menge aller failure pairs von P}
+\end{align*}
+\end{Definition}
+
+\begin{Definition}[Simulation Semantik]
+$P$ simuliert $Q$, falls $Q$ für jeden Schritt, den $P$ macht, einen passenden Schritt ausführen kann.
+\begin{align*}
+P-a\rightarrow P^\prime \land P\,s\,Q \Rightarrow \exists Q^\prime : Q-a\rightarrow Q^\prime \land P^\prime \, s\, Q^\prime
+\end{align*}
+\end{Definition}
+
+
 \section{Petri-Netze}
 \begin{Definition}[Petri-Netz]
 Ein \textcolor{blue}{Petri-Netz} ist ein $5$-Tupel $N=(P,T,F,W,m_0)$ mit:
