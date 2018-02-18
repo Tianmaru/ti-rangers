@@ -907,6 +907,41 @@ P-a\rightarrow P^\prime \land P\,s\,Q \Rightarrow \exists Q^\prime : Q-a\rightar
 \end{align*}
 \end{Definition}
 
+\section{Statecharts}
+\begin{Definition}[Mealy-Automat]
+Ein Mealy-Automat ist ein 6-Tupel $A=(Z,\Sigma,\Omega,\delta,\lambda,z_0)$ mit:
+\begin{itemize}
+\item
+$Z$ endliche Zustandsmenge
+\item
+$\Sigma$ endliches Eingabealphabet
+\item
+$\Omega$ endliches Ausgabealphabet
+\item
+$\delta : Z\times\Sigma\rightarrow Z$ Übergangsfunktion
+\item
+$\lambda : Z\times\Sigma\rightarrow\Omega$ Ausgabefunktion
+\item
+$z_0$ Startzustand
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Statecharts]
+Statecharts oder Harel-Automaten zur Modellierung reaktiver Systeme erweitern Mealy-Automaten um
+\begin{enumerate}
+\item
+bedingte Zustandsübergänge: $\text{Ereignis}[\text{Bedingung}]/\text{Aktivität}$
+\item
+hierarchische Zustände
+\item
+Gedächtnis
+\item
+Nebenläufigkeit
+\end{enumerate}
+\end{Definition}
+
+\section{Temporal Logic of Actions (TLA)}
+
 
 \section{Petri-Netze}
 \begin{Definition}[Petri-Netz]
