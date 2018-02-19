@@ -3,7 +3,6 @@
 
 \usepackage[ngerman]{babel} 
 \usepackage[utf8]{inputenc}
-
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{color}
 \usepackage{longtable}
@@ -23,6 +22,7 @@ linkcolor = black,
 plainpages = false,
 hypertexnames = false,
 citecolor = black] {hyperref}
+\usepackage{zed-csp}
 
 \newtheoremstyle{example}
   {\topsep}{\topsep}%
@@ -1101,5 +1101,33 @@ Ein Free-Choice-Netz ist lebendig genau dann, wenn jeder Siphon eine initial mar
 \end{Satz}
 
 \section{Z-Notation}
+Ausgangspunkt ist die Beschreibung von Mengen durch Angabe ihrer charakteristischen Eigenschaft.
+\begin{schema}{Name}
+\text{Deklaration}
+\where
+\text{Prädikat}
+\end{schema}
+Ein Schritt bezeichnet ein Schema mit ungestrichenen und gestrichenen Variablen.\\
+Variablen, die auf $!$ enden, sind die Eingabe.\\
+Variablen, die auf $?$ enden, sind die Ausgabe.\\
 
+\begin{tabularx}{\linewidth}{XXX}
+\multicolumn{1}{c}{\textbf{Schritt}}&\multicolumn{1}{c}{\textbf{Immer}}&\multicolumn{1}{c}{\textbf{Initialisierung}}\\
+\begin{schema}{\Delta X}
+X\\
+X^\prime
+\where
+\end{schema}
+&
+\begin{schema}{\Xi X}
+X\\
+X^\prime
+\where
+\theta X = \theta X^\prime
+\end{schema}&
+\begin{schema}{XInit}
+X^\prime
+\where
+\end{schema}\\
+\end{tabularx}
 \end{document}
