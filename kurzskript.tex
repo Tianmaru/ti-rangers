@@ -841,7 +841,7 @@ Wenn vor Abarbeitung von $S$ die Aussage $P$ gilt, dann terminiert $S$ und nach 
 $[\text{skip}_\text{par}]$&$\{ P \}\,\text{skip}\,\{P\}$\\
 $[\text{ass}_\text{par}]$&$\{ P[x\rightarrow \mathbb{A} \llbracket E \rrbracket ] \}\,x:=E\,\{P\}$\\
 $[\text{comp}_\text{par}]$&\infer{\{P\}\, S_1;S_2 \,\{R\}}{\{P\}\,S_1\,\{Q\} & \{Q\}\,S_2\,\{R\}}\\
-$[\text{if}_\text{par}]$&\infer{\{P\}\, \text{if $b$ then $S_1$ else $S_2$ end} \,\{Q\}}{\{P \land \mathbb{B}\llbracket b \rrbracket\}\,S_1\,\{Q\} & \{P \land \lnot\mathbb{B}\llbracket b \rrbracket\}\,S_1\,\{Q\}}\\
+$[\text{if}_\text{par}]$&\infer{\{P\}\, \text{if $b$ then $S_1$ else $S_2$ end} \,\{Q\}}{\{P \land \mathbb{B}\llbracket b \rrbracket\}\,S_1\,\{Q\} & \{P \land \lnot\mathbb{B}\llbracket b \rrbracket\}\,S_2\,\{Q\}}\\
 $[\text{while}_\text{par}]$&\infer{\{I\}\, \text{while $b$ do $S$ end} \,\{ I \land \lnot \mathbb{B}\llbracket b \rrbracket\}}{\{I \land \mathbb{B}\llbracket b \rrbracket\}\,S\,\{I\}}\\
 $[\text{cons}_\text{par}]$&\infer{\{P^\prime\}\, S \,\{Q^\prime\}}{P^\prime \Rightarrow P&\{P\}\,S\,\{Q\} & Q\Rightarrow Q^\prime}\\
 \end{tabularx}
