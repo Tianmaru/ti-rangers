@@ -14,6 +14,15 @@
 \usepackage{proof}
 \usepackage{multirow}
 \usepackage{stmaryrd}
+\usepackage[colorlinks,
+pdfpagelabels,
+pdfstartview = FitH,
+bookmarksopen = true,
+bookmarksnumbered = true,
+linkcolor = black,
+plainpages = false,
+hypertexnames = false,
+citecolor = black] {hyperref}
 
 \newtheoremstyle{example}
   {\topsep}{\topsep}%
@@ -980,22 +989,26 @@ Wenn im Ablauf $\sigma$ unendlich oft $\Phi\land f \not = f^\prime$ aktiviert is
 
 \section{Petri-Netze}
 \begin{Definition}[Petri-Netz]
-Ein \textcolor{blue}{Petri-Netz} ist ein $5$-Tupel $N=(P,T,F,W,m_0)$ mit:
+Ein \textcolor{blue}{Petri-Netz} ist ein $5$-Tupel $N=(S,T,F,W,m_0)$ mit:
 \begin{itemize}
 \item
-$P$ ist eine endliche Menge von \textcolor{blue}{Stellen} (\textit{Places})
+$S$ ist eine endliche Menge von \textcolor{blue}{Stellen}
 \item
 $T$ ist eine endliche Menge von \textcolor{blue}{Transitionen}
 \item
-$P\cap T = \varnothing$
+$S\cap T = \varnothing$
 \item
-$P\cup T$ ist die Menge der \textcolor{blue}{Knoten}
+$S\cup T$ ist die Menge der \textcolor{blue}{Knoten}
 \item
-$F \subseteq (P\times T) \cup (T \times P)$ ist eine endliche Menge von \textcolor{blue}{Bögen} (\textit{flow relations})
+$F \subseteq (S\times T) \cup (T \times S)$ ist eine endliche Menge von \textcolor{blue}{Bögen} (\textit{flow relations})
 \item
 $W: F \rightarrow \mathbb{N} \setminus \{0\}$ sind die \textcolor{blue}{Bogengewichte} (\textit{Weights}) 
 \item
-$m_0: P \rightarrow \mathbb{N}$ ist die \textcolor{blue}{Anfangsmarkierung}
+$m_0: S \rightarrow \mathbb{N}$ ist die \textcolor{blue}{Anfangsmarkierung}
+\item
+\textcolor{blue}{Low Level}: Informationsträger tragen keine Daten
+\item
+\textcolor{blue}{High Level}: Informationsträger tragen Daten
 \end{itemize}
 \end{Definition}
 
@@ -1007,4 +1020,86 @@ Der \textcolor{blue}{Vorbereich} eines Knotens $x$ ist $\bullet x = \{y \mid (y,
 Der \textcolor{blue}{Nachbereich} eines Knotens $x$ ist $x\bullet = \{y \mid (x,y) \in F\}$.
 \end{enumerate}
 \end{Definition}
+
+\begin{Definition}[Schaltung]
+\noindent
+\begin{itemize}
+\item
+Eine Transition $t$ ist \textcolor{blue}{aktiviert} (hat Konzession) in Markierung $m : S\rightarrow\mathbb{N}$:
+\begin{equation*}
+\forall s \in \bullet t: W((s,t)) \leq m(s)
+\end{equation*}
+\item
+Eine Transition $t$ \textcolor{blue}{schaltet/feuert} in Markierung $m : P\rightarrow\mathbb{N}$ und führt zu $m^\prime$:
+\begin{equation*}
+\text{$t$ ist aktiviert in $m$}\,\land\,\forall s \in S: m^\prime(s) = m(s) - W((s,t)) + W((t,s))
+\end{equation*}
+Schreibweise: $m \overset{t}{\longrightarrow} m^\prime$
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Markierungen, Stellen, Transitionen]
+\noindent
+\begin{itemize}
+\item
+Eine Markierung $m^\prime$ ist \textcolor{blue}{erreichbar} von Markierung $m$, wenn es eine beliebige Transitionssequenz $w$ gibt, sodass $m\overset{w}{\longrightarrow}m^\prime$, also wenn $m\overset{*}{\longrightarrow}m^\prime$.
+\item
+Die Menge der von $m$ erreichbaren Markierungen ist
+\begin{equation*}
+R_N(m) = \{m^\prime \mid m\overset{*}{\longrightarrow}m^\prime\}
+\end{equation*}
+\item
+Eine Transition $t$ ist \textcolor{blue}{tot} in Markierung $m$, wenn $t$ in keinem $m^\prime \in R_N(m)$ aktiviert ist.
+\item
+Eine Transition $t$ ist \textcolor{blue}{lebendig} in Markierung $m$, wenn von jedem $m^\prime \in R_N(m)$ ein $m^{\prime\prime}$ erreichbar ist, in dem $t$ aktiviert ist.
+\item
+Eine Stelle $s$ heißt \textcolor{blue}{$k$-beschränkt} in Markierung $m$, wenn gilt:
+\begin{equation*}
+\forall m^\prime \in R_N(m): m^\prime(s)\leq k
+\end{equation*}
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Eigenschaften von Petri-Netzen]
+\noindent
+\begin{itemize}
+\item
+$N$ ist \textcolor{blue}{verklemmungsfrei}, wenn in jedem $m$ aus $R_N(m_0)$ mindestens eine Transition aktiviert ist.
+\item
+$N$ ist \textcolor{blue}{lebendig}, wenn alle Transitionen von $N$ lebendig sind.
+\item
+$N$ ist \textcolor{blue}{reversibel}, wenn von jedem $m \in R_N(m_0)$ $m:0$ erreichbar ist.
+\item
+$N$ ist \textcolor{blue}{$k$-beschränkt}, wenn jede Stelle von $N$ $k$-beschränkt ist.
+\item
+$N$ ist \textcolor{blue}{beschränkt}, wenn es ein $k$ gibt, sodass $N$ $k$-beschränkt ist.
+\end{itemize}
+\end{Definition}
+
+\begin{Definition}[Zustandsmaschine]
+Eine \textcolor{blue}{Zustandsmaschine} ist ein Petri-Netz, wo jede Transition genau einen Vor- und einen Nachplatz hat. Dies bedeutet, dass die Markenzahl konstant bleibt. Jede Zustandsmaschine ist also beschränkt. Eine Zustandsmaschine ist lebendig genau dann, wenn sie stark zusammenhängend ist und $\boldsymbol{m_0} > \boldsymbol{0}$ ist.
+\end{Definition}
+
+\begin{Definition}[Synchronisationsgraph]
+Ein \textcolor{blue}{Synchronisationsgraph} ist ein Petri-Netz, wo jede Stelle genau eine Vor- und eine Nachtransition hat. In jedem Kreis eines Synchronisationsgraphen bleibt die Markenzahl konstant. Ein Synchronisationsgraph ist lebendig genau dann, wenn jeder Kreis initial markiert ist.
+\end{Definition}
+
+\begin{Definition}[Free-Choice-Netz]
+Ein \textcolor{blue}{Free-Choice-Netz} ist ein Petri-Netz, wenn gilt: Wenn Transitionen Vorplätze teilen, teilen sie alle Vorplätze. Free-Choice-Netze sind konfusionsfrei.
+\end{Definition}
+
+\begin{Definition}[Siphons (Strukturelle Deadlocks)]
+Ein nichtleere Stellen-Menge $D\subseteq S$ heißt \textcolor{blue}{Siphon}, falls $\bullet D \subseteq D\bullet$. Enthält ein Siphon in einer Markierung $m$ keine Marken, dann enthält er auch in allen von $m$ erreichbaren Markierungen keine Marken.
+\end{Definition}
+
+\begin{Definition}[Fallen/Traps]
+Ein Stellen-Menge $Q\subseteq S$ heißt \textcolor{blue}{Falle}, falls $Q\bullet \subseteq \bullet Q$. Enthält eine Falle in einer Markierung $m$ Marken, dann enthält sie auch in allen von $m$ erreichbaren Markierungen Marken.
+\end{Definition}
+
+\begin{Satz}[Commoners Theorem]
+Ein Free-Choice-Netz ist lebendig genau dann, wenn jeder Siphon eine initial markierte Falle enthält.
+\end{Satz}
+
+\section{Z-Notation}
+
 \end{document}
